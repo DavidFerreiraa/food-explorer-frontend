@@ -15,7 +15,7 @@ export function SignIn() {
                     <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email"/>
                     <FormField placeholder="No mínimo 6 caracteres" label="Senha"/>
                     <Button title="Entrar"/>
-                    <Button title="Criar uma conta" onlyText={true}/>
+                    <Button title="Criar uma conta" onlyText={true} linkTo="/register"/>
                 </Form>
             </Holder>
         </Container>

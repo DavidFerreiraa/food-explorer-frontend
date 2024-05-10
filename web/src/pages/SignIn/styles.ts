@@ -4,7 +4,7 @@ export const Container = styled.div`
     width: 100%;
     height: 100vh;
 
-    background-color: #1E1E1E;
+    background-color: ${({ theme }) => theme.COLORS.DARK_100};
 
     display: flex;
 `;
@@ -21,7 +21,7 @@ export const Holder = styled.div`
 
 export const Form = styled.form`
     max-width: 47.6rem;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;

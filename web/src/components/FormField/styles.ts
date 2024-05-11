@@ -16,12 +16,12 @@ export const Input = styled.input`
 
     background: ${({ theme }) => theme.COLORS.DARK_900};
     
-    border: none;
+    border: ${({ theme }) => `1px solid ${theme.COLORS.DARK_900}`};
     border-radius: 5px;
 
     &::placeholder {
         font-family: "Roboto", "Poppins", sans-serif;
-        font-weight: 200;
+        font-weight: 400;
         font-size: 1.6rem;
         line-height: 100%;
 
@@ -35,7 +35,7 @@ export const Input = styled.input`
 
 export const Label = styled.label`
     font-family: "Roboto", "Poppins", sans-serif;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 1.6rem;
     line-height: 100%;
     

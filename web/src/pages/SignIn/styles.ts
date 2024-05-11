@@ -14,8 +14,6 @@ export const Holder = styled.div`
     align-items: center;
     justify-content: center;
 
-    padding: 14.2rem 10.8rem;
-
     flex: 1;
 `;
 

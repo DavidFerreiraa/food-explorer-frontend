@@ -7,12 +7,20 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.COLORS.DARK_100};
 
     display: flex;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 export const Holder = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    > img {
+        max-width: 28rem;
+    }
 
     flex: 1;
 `;
@@ -32,6 +40,10 @@ export const Form = styled.form`
     background-color: ${({ theme }) => theme.COLORS.DARK_700};
 
     border-radius: 1.6rem;
+
+    @media (max-width: 375px) {
+        padding: 3.2rem;
+    }
 `;
 
 export const Legend = styled.h1`

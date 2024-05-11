@@ -4,6 +4,8 @@ export const Container = styled.div`
     width: 100%;
     height: 100vh;
 
+    padding: 14.2rem 10.8rem;
+
     background-color: ${({ theme }) => theme.COLORS.DARK_100};
 
     display: flex;
@@ -33,9 +35,9 @@ export const Form = styled.form`
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    gap: 3.2rem;
+    gap: clamp(1.6rem, 3.2rem, 6.4rem);
 
-    padding: 6.4rem;
+    padding: clamp(1.6rem, 3.2rem, 6.4rem);
 
     background-color: ${({ theme }) => theme.COLORS.DARK_700};
 

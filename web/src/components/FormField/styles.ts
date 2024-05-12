@@ -6,7 +6,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    gap: .8rem;
+    gap: clamp(.4rem, .8rem, .16rem);
 `;
 
 export const Input = styled.input`
@@ -19,10 +19,12 @@ export const Input = styled.input`
     border: ${({ theme }) => `1px solid ${theme.COLORS.DARK_900}`};
     border-radius: 5px;
 
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
     &::placeholder {
         font-family: "Roboto", "Poppins", sans-serif;
         font-weight: 400;
-        font-size: 1.6rem;
+        font-size: clamp(1rem, 1.2rem, 1.6rem);
         line-height: 100%;
 
         color: ${({ theme }) => theme.COLORS.LIGHT_500}
@@ -36,7 +38,7 @@ export const Input = styled.input`
 export const Label = styled.label`
     font-family: "Roboto", "Poppins", sans-serif;
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 1.6rem, 2rem);
     line-height: 100%;
     
     color: ${({ theme }) => theme.COLORS.LIGHT_400}

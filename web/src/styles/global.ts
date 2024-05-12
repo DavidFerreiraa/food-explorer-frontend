@@ -12,6 +12,9 @@ export default createGlobalStyle`
     }
 
     body {
+        width: 100%;
+        height: 100%;
+        
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
         color: ${({theme}) => theme.COLORS.WHITE};
 

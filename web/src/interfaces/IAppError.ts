@@ -1,16 +1,10 @@
-export interface IAppError {
-    code: string,
-    response?: {
-        data: {
+export interface IDataError {
+    message: string,
+    details: [{
+            code: string,
             message: string,
-            statusCode: number,
-            details: [{
-                    code: string,
-                    message: string,
-                    path: string[],
-                    validation: string
-                }
-            ]
+            path: string[],
+            validation: string
         }
-    }
+    ]
 }

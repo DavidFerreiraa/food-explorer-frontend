@@ -18,7 +18,7 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({children}: IAuthProvider) {
-    const [data, setData] = useState<IUser>({} as IUser);
+    const [data, setData] = useState<IUser|undefined>(undefined);
 
     async function signIn(email: string, password: string): Promise<void> {
         api.post<IUser>("/sessions", { email, password }, {withCredentials: true}).then((response) => {
@@ -42,7 +42,7 @@ export function AuthProvider({children}: IAuthProvider) {
         localStorage.removeItem("@foodexplorer:user");
         Cookies.remove("token");
         
-        setData({} as IUser);
+        setData(undefined);
         return toast.success("Até a próxima.")
     }
 

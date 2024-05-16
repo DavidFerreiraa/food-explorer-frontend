@@ -19,15 +19,32 @@ export const Container = styled.div`
     > svg {
         color: ${({ theme }) => theme.COLORS.LIGHT_400};
     }
+
+    &:focus-within {
+        justify-content: start;
+
+        > svg {
+            display: none;
+        }
+    }
 `;
 
 export const Input = styled.input`
     background: none;
     border: none;
+    flex-grow: 1;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     field-sizing: content;
 
     &::placeholder {
         color: ${({ theme }) => theme.COLORS.LIGHT_500};
+        text-align: center;
+    }
+
+    &:focus {
+        &::placeholder {
+            color: transparent;
+        }
     }
 `;

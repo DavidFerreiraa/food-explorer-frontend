@@ -5,8 +5,9 @@ import { IoSearchSharp } from "react-icons/io5";
 export function SearchInput({...rest}: InputHTMLAttributes<HTMLInputElement> ) {
     return(
         <Container>
+            <label htmlFor="search"/>
             <IoSearchSharp size={24}/>
-            <Input {...rest}/>
+            <Input {...rest} id="search" name="search"/>
         </Container>
     );
 }

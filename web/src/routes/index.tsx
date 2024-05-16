@@ -6,7 +6,7 @@ import { UserRoutes } from "./user.routes";
 
 export function Routes() {
     const { user } = useAuth();
-    console.log(user)
+    
     return(
         <BrowserRouter>
             {!user? <AuthRoutes/> : user.Role === "ADMIN"? <AdminRoutes/> : user.Role === "USER"? <UserRoutes/> : <AuthRoutes/>}

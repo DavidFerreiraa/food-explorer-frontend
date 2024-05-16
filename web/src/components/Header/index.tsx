@@ -17,7 +17,7 @@ export function Header() {
                 <img src={user?.Role === "ADMIN"? LogoAdmin : Logo } alt="logo"/>
             </Link>
             <SearchInput placeholder="Busque por pratos ou ingredientes"/>
-            <Button icon={<PiReceiptBold/>} title={`Pedidos (0)`}/>
+            <Button icon={user?.Role === "USER" && <PiReceiptBold/>} title={user?.Role === "ADMIN"?"Novo prato":`Pedidos (0)`}/>
             <LogOut/>
         </Container>
     );

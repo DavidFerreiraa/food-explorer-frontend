@@ -9,7 +9,7 @@ export const Container = styled.div`
     justify-content: center;
     gap: 3.2rem;
 
-    padding: 2.8rem 12.3rem;
+    padding: 2.8rem 0;
 
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_600};
 

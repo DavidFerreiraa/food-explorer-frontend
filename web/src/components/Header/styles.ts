@@ -11,7 +11,7 @@ export const Container = styled.div`
 
     padding: 2.8rem 0;
 
-    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_600};
+    background-color: ${({ theme }) => theme.COLORS.DARK_600};
 
     > img {
         width: 19.7rem;

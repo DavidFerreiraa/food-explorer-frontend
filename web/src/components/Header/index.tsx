@@ -1,7 +1,7 @@
 import { useAuth } from "../../hooks/auth";
 import { Container } from "./styles";
-import Logo from "../../assets/foodExplorerLogoAdmin.svg";
-import LogoAdmin from "../../assets/foodExplorerLogo.svg";
+import LogoAdmin from "../../assets/foodExplorerLogoAdmin.svg";
+import Logo from "../../assets/foodExplorerLogo.svg";
 import { PiReceiptBold } from "react-icons/pi";
 import { SearchInput } from "../SearchInput";
 import { Button } from "../Button";
@@ -10,14 +10,16 @@ import { Link } from "react-router-dom";
 
 export function Header() {
     const { user } = useAuth();
-    console.log(user?.Role);
+    
     return(
         <Container>
             <Link to="/">
                 <img src={user?.Role === "ADMIN"? LogoAdmin : Logo } alt="logo"/>
             </Link>
             <SearchInput placeholder="Busque por pratos ou ingredientes"/>
-            <Button icon={user?.Role === "USER" && <PiReceiptBold/>} title={user?.Role === "ADMIN"?"Novo prato":`Pedidos (0)`}/>
+            <Link to={user?.Role === "ADMIN"? "/newproduct": ""}>
+                <Button icon={user?.Role === "USER" && <PiReceiptBold/>} title={user?.Role === "ADMIN"?"Novo prato":`Pedidos (0)`}/>
+            </Link>
             <LogOut/>
         </Container>
     );

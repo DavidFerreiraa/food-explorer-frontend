@@ -24,8 +24,8 @@ export function SignIn() {
             <Holder>
                 <Form onSubmit={ (event) => {handleSignIn(event)} }>
                     <Legend>Faça login</Legend>
-                    <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" onChange={(e) => setEmail(e.target.value)}/>
-                    <FormField placeholder="No mínimo 6 caracteres" label="Senha" onChange={(e) => setPassword(e.target.value)}/>
+                    <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" htmlFor="email" onChange={(e) => setEmail(e.target.value)}/>
+                    <FormField placeholder="No mínimo 6 caracteres" label="Senha" htmlFor="password" onChange={(e) => setPassword(e.target.value)}/>
                     <Button title="Entrar"/>
                     <Button title="Criar uma conta" onlyText={true} linkTo="/register"/>
                 </Form>

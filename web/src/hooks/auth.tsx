@@ -21,9 +21,9 @@ export function AuthProvider({children}: IAuthProvider) {
     const [data, setData] = useState<IUser|undefined>(undefined);
 
     async function signIn(email: string, password: string): Promise<void> {
-        api.post<IUser>("/sessions", { email, password }, {withCredentials: true}).then((response) => {
+        api.post<IUser>("/sessions", { email, password }).then((response) => {
             const user = response.data;
-            console.log(response);
+            
             localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
             
             setData(user);

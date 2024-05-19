@@ -35,8 +35,6 @@ export const Input = styled.input`
     flex-grow: 1;
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
-    field-sizing: content;
-
     &::placeholder {
         color: ${({ theme }) => theme.COLORS.LIGHT_500};
         text-align: center;

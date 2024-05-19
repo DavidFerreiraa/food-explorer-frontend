@@ -24,7 +24,6 @@ export const Holder = styled.div`
     display: flex;
     justify-content: center;
     flex-grow: 1;
-    gap: 7.3rem;
 
     > img {
         max-width: 28rem;
@@ -33,14 +32,13 @@ export const Holder = styled.div`
 
 export const Form = styled.form`
     max-width: 47.6rem;
-    max-height: 54rem;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     flex-grow: 1;
-    gap: clamp(1.6rem, 3.2rem, 6.4rem);
+    gap: 6.4rem;
 
     padding: clamp(3.2rem, 6.4rem, 7.2rem);
 

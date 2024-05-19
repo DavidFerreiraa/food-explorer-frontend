@@ -12,9 +12,9 @@ export function SignUp() {
             <Holder>
                 <Form>
                     <Legend>Faça login</Legend>
-                    <FormField placeholder="Exemplo: Maria da Silva" label="Seu nome"/>
-                    <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email"/>
-                    <FormField placeholder="No mínimo 6 caracteres" label="Senha"/>
+                    <FormField placeholder="Exemplo: Maria da Silva" label="Seu nome" htmlFor="name"/>
+                    <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" htmlFor="email"/>
+                    <FormField placeholder="No mínimo 6 caracteres" label="Senha" htmlFor="password"/>
                     <Button title="Criar conta"/>
                     <Button title="Já tenho uma conta" onlyText={true} linkTo="/"/>
                 </Form>

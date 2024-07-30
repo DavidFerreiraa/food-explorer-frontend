@@ -25,7 +25,8 @@ export function AuthProvider({children}: IAuthProvider) {
             const user = response.data;
             
             localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
-            
+            Cookies.set("token_expiration", "Token Expiration Date", {expires: 15*60*1000});
+
             setData(user);
             return toast.success(`Olá, ${user.name}`);
         }).catch((error: AxiosError<IDataError>) => {
@@ -41,6 +42,7 @@ export function AuthProvider({children}: IAuthProvider) {
     function signOut() {
         localStorage.removeItem("@foodexplorer:user");
         Cookies.remove("token");
+        Cookies.remove("token_expiration");
         
         setData(undefined);
         return toast.success("Até a próxima.")

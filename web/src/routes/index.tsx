@@ -3,13 +3,15 @@ import { AuthRoutes } from "./auth.routes";
 import { useAuth } from "../hooks/auth";
 import { AdminRoutes } from "./admin.routes";
 import { UserRoutes } from "./user.routes";
+import Cookies from "js-cookie";
 
 export function Routes() {
     const { user } = useAuth();
-    
+    const token_expiration = Cookies.get("token_expiration");
+
     return(
         <BrowserRouter>
-            {!user? <AuthRoutes/> : user.Role === "ADMIN"? <AdminRoutes/> : user.Role === "USER"? <UserRoutes/> : <AuthRoutes/>}
+            {!user || !token_expiration? <AuthRoutes/> : user.Role === "ADMIN"? <AdminRoutes/> : user.Role === "USER"? <UserRoutes/> : <AuthRoutes/>}
         </BrowserRouter>
     );
 }

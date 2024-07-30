@@ -10,7 +10,7 @@ interface IProductProvider {
 }
 
 interface ICreateProduct {
-    product: IProduct
+    product: Partial<IProduct>
     file: File
 }
 
@@ -32,6 +32,7 @@ export function ProductProvider({children}: IProductProvider) {
         .then((response) => {
             toast.success("Product created!");
             productCreated = response.data;
+            return productCreated;
         })
         .catch((error: AxiosError<IDataError>) => {
             if (error.response) {

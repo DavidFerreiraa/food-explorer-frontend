@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './hooks/auth'
 import { ProductProvider } from './hooks/product'
 import { CategoryProvider } from './hooks/category'
+import { OrderProvider } from './hooks/order'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <ProductProvider>
           <CategoryProvider>
-            <GlobalStyles/>
-            <Routes/>
-            <ToastContainer theme='dark'/>
+            <OrderProvider>
+              <GlobalStyles/>
+              <Routes/>
+              <ToastContainer theme='dark'/>
+            </OrderProvider>
           </CategoryProvider>
         </ProductProvider>
       </AuthProvider>

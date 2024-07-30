@@ -10,14 +10,14 @@ interface ICategoryProvider {
 }
 
 interface CategoryContextType {
-    categories: ICategory | undefined,
+    categories: ICategory[] | undefined,
     fetchCategories(): Promise<ICategory | void>
 }
 
 export const CategoryContext = createContext<CategoryContextType | undefined>(undefined);
 
 export function CategoryProvider({children}: ICategoryProvider) {
-    const [data, setData] = useState<ICategory | undefined>(undefined)
+    const [data, setData] = useState<ICategory[] | undefined>(undefined)
 
     async function fetchCategories(): Promise<ICategory | void> {
         await api.get("/categories").then((response) => {

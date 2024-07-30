@@ -4,6 +4,7 @@ import { FormField } from "../../components/FormField";
 import { Button } from "../../components/Button";
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function SignIn() {
     const { signIn } = useAuth();
@@ -27,7 +28,9 @@ export function SignIn() {
                     <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" htmlFor="email" onChange={(e) => setEmail(e.target.value)}/>
                     <FormField placeholder="No mínimo 6 caracteres" label="Senha" htmlFor="password" onChange={(e) => setPassword(e.target.value)}/>
                     <Button title="Entrar"/>
-                    <Button title="Criar uma conta" onlyText={true} linkTo="/register"/>
+                    <Link to="/register">
+                        <Button title="Criar uma conta" onlyText={true}/>
+                    </Link>
                 </Form>
             </Holder>
         </Container>

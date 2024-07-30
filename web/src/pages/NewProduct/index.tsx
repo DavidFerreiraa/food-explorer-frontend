@@ -85,20 +85,16 @@ export function NewProduct() {
         api.get("/categories")
         .then((response) => {
             setCategories(response.data)
+            setCategorySelected(response.data[0].id);
         })
         .catch((error) => {
             console.log(error)
             toast.error("Can't load all categories");
         })
-
-        if(categories) {
-            setCategorySelected(categories[0].id)
-        }
     }, [])
 
     return(
         <Container>
-            <Header/>
             <CreateProductBody>
                 <Link to="..">
                     <Button title="Voltar" icon={<RxCaretLeft size={32}/>} onlyText={true} />
@@ -130,7 +126,7 @@ export function NewProduct() {
                             />
                         </IngredientsContainer>
                     </FormContainer>
-                    <FormField placeholder="R$ 00,00" label="Preço" inputMode="numeric" type="number" htmlFor="price" onChange={(e) => setPrice(e.target.value)}/>
+                    <FormField placeholder="R$ 00,00" label="Preço" inputMode="numeric" type="number" htmlFor="price" step="0.01" onChange={(e) => setPrice(e.target.value)}/>
                     <TextAreaContainer>
                         <FormTextArea label="Descrição" placeholder="Fale brevemente sobre o prato, seus ingredientes e composição" onChange={(e) => setDescription(e.target.value)}/>
                     </TextAreaContainer>

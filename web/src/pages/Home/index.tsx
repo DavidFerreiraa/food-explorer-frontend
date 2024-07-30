@@ -1,4 +1,3 @@
-import { Header } from "../../components/Header";
 import { Container } from "./styles";
 import Banner from "../../assets/banner.svg";
 import { CategoryList } from "../../components/CategoryList";
@@ -15,9 +14,12 @@ export function Home() {
     console.log(categories);
     return(
         <Container>
-            <Header/>
             <img src={Banner} alt="Sabores inigualáveis - banner"/>
-            <CategoryList/>
+            {
+                categories && categories.map((category) => (
+                    <CategoryList key={category.id} category={category}/>
+                ))
+            }
         </Container>
     );
 }

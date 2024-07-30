@@ -5,7 +5,7 @@ export const Container = styled.footer`
     align-items: center;
     justify-content: space-between;
 
-    padding: 2.4rem 0;
+    padding: 2.4rem 12.3rem;
 
     background-color: ${({ theme }) => theme.COLORS.DARK_600};
 

@@ -7,11 +7,11 @@ import Cookies from "js-cookie";
 
 export function Routes() {
     const { user } = useAuth();
-    const token_expiration = Cookies.get("token_expiration");
-
+    const token_expiration_date = Cookies.get("token_expiration");
+    
     return(
         <BrowserRouter>
-            {!user || !token_expiration? <AuthRoutes/> : user.Role === "ADMIN"? <AdminRoutes/> : user.Role === "USER"? <UserRoutes/> : <AuthRoutes/>}
+            {!user || !token_expiration_date ? <AuthRoutes/> : user.Role === "ADMIN"? <AdminRoutes/> : user.Role === "USER"? <UserRoutes/> : <AuthRoutes/>}
         </BrowserRouter>
     );
 }

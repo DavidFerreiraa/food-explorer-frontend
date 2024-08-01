@@ -25,7 +25,7 @@ export function AuthProvider({children}: IAuthProvider) {
             const user = response.data;
             
             localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
-            Cookies.set("token_expiration", "Token Expiration Date", {expires: 15*60*1000});
+            Cookies.set("token_expiration", "Token Expiration", {expires: 10.41});
 
             setData(user);
             return toast.success(`Olá, ${user.name}`);

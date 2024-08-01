@@ -6,20 +6,28 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
     gap: 2.4rem;
 
-    position: relative;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const CarouselWrapper = styled.div`
+    width: 100%;
+
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     position: relative;
 `;
 
 export const ProdWrapper = styled.div`
-    overflow-x: auto;
+    width: 100%;
 
     &::-webkit-scrollbar {
         display: none;
@@ -30,11 +38,13 @@ export const ProdWrapper = styled.div`
 `;
 
 export const ProdContainer = styled.div`
+    width: 100%;
+
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     flex-flow: row nowrap;
-    gap: 2.7rem;
+    gap: 7rem;
 
     overflow-x: auto;
 `;
@@ -46,13 +56,14 @@ export const CarouselButtonWrapper = styled.div`
     display: flex;
 
     position: absolute;
+    pointer-events: none;
 
     &.left {
         align-items: center;
         justify-content: flex-start;
 
         z-index: 1;
-        left: -5rem;
+        left: 0rem;
 
         background: linear-gradient( to right, rgba(0, 10, 15, 100%), rgba(0, 10, 15, 0%));
     }
@@ -62,7 +73,7 @@ export const CarouselButtonWrapper = styled.div`
         justify-content: flex-end;
    
         z-index: 1;
-        right: -5rem;
+        right: 0rem;
 
         background: linear-gradient( to left, rgba(0, 10, 15, 100%), rgba(0, 10, 15, 0%));
     }
@@ -76,6 +87,8 @@ export const CarouselButton = styled.button`
     > svg {
         color: ${({ theme }) => theme.COLORS.LIGHT_300};
     }
+
+    pointer-events: all;
 `;
 
 

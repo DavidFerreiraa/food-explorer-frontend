@@ -13,8 +13,6 @@ export function CategoryList({category}: ICategoryList) {
     const [currentItem, setCurrentItem] = useState(0);
     const itemsPerPage = 3; // Quantidade de itens a serem visíveis por vez
     const totalItems = category.Products.length;
-    // const items = document.querySelectorAll(`.${category.name}`);
-    // const maxItems = category.Products.length;
     
     // Função para rolar para o item anterior
     const handlePreviousButton = () => {

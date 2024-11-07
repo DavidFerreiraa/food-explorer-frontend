@@ -4,12 +4,14 @@ import { api } from "../../services/api";
 import { ClickableContainer, Container, ProdDescription, ProdPrice, ProdQuantityButton, ProdQuantityContainer, ProdQuantityInput, ProdTitle } from "./styles";
 import { FaHeart, FaMinus, FaPlus } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
+import { PiPencilSimpleBold } from "react-icons/pi";
 import { Button } from "../Button";
 import { useOrder } from "../../hooks/order";
 import { AxiosError } from "axios";
 import { IDataError } from "../../interfaces/IAppError";
 import { toast } from "react-toastify";
 import { IFavorite } from "../../interfaces/IFavorite";
+import { useAuth } from "../../hooks/auth";
 
 export interface IProductCard extends React.HTMLAttributes<HTMLDivElement> {
     product: IProduct
@@ -17,6 +19,7 @@ export interface IProductCard extends React.HTMLAttributes<HTMLDivElement> {
 
 export function ProductCard({ product, ...rest }: IProductCard) {
     const { createOrder } = useOrder();
+    const { user } = useAuth();
 
     const avatarURL = `${api.defaults.baseURL}/files/${product.imageUrl}`;
 
@@ -63,12 +66,23 @@ export function ProductCard({ product, ...rest }: IProductCard) {
          }
     }
 
-    console.log(favorite)
+    function chooseActionIcon() {
+        if (user?.Role === 'USER') {
+            if (favorite) {
+                return <CiHeart size={24}/>
+            }
+            return <FaHeart size={24} className="favorited"/>
+        }
+
+        if (user?.Role === 'ADMIN') {
+            return <PiPencilSimpleBold size={24}/>
+        }
+    }
 
     return (
         <Container {...rest}>
             <ClickableContainer className="favorite-icon" onClick={handleFavorite}>
-                { favorite? <FaHeart size={24} className="favorited"/> : <CiHeart size={24} strokeWidth={2}/> }
+                { chooseActionIcon() }
             </ClickableContainer>
             <ClickableContainer>
                 <img src={avatarURL} alt="imagem do produto" />

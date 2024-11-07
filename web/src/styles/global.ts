@@ -11,9 +11,14 @@ export default createGlobalStyle`
         font-size: 62.5%;
     }
 
-    body {
+    #root {
         width: 100%;
         height: 100%;
+    }
+
+    body {
+        width: 100%;
+        height: 100dvh;
         
         background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
         color: ${({theme}) => theme.COLORS.WHITE};

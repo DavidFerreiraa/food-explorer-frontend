@@ -39,7 +39,6 @@ export const ProdWrapper = styled.div`
 
 export const ProdContainer = styled.div`
     width: 100%;
-
     display: flex;
     align-items: center;
     justify-content: start;
@@ -47,6 +46,14 @@ export const ProdContainer = styled.div`
     gap: 7rem;
 
     overflow-x: auto;
+
+    scroll-behavior: smooth; /* Opcional, para suavizar o movimento de rolagem */
+    
+    /* Defina a largura de cada item */
+    > div {
+        flex-shrink: 0;
+        width: calc(100% / 3); /* Exibe 3 itens por vez */
+    }
 `;
 
 export const CarouselButtonWrapper = styled.div`

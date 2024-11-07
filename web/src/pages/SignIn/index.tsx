@@ -23,7 +23,7 @@ export function SignIn() {
                 <img src={LogoFoodExplorer} alt="food explorer logo"/>
             </Holder>
             <Holder>
-                <Form onSubmit={ (event) => {handleSignIn(event)} }>
+                <Form onSubmit={(event) => {handleSignIn(event)} }>
                     <Legend>Faça login</Legend>
                     <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" htmlFor="email" onChange={(e) => setEmail(e.target.value)}/>
                     <FormField placeholder="No mínimo 6 caracteres" label="Senha" htmlFor="password" onChange={(e) => setPassword(e.target.value)}/>

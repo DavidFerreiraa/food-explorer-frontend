@@ -5,6 +5,7 @@ import { IDataError } from "../interfaces/IAppError";
 import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 interface IAuthProvider {
     children: ReactNode
 }
@@ -12,6 +13,7 @@ interface IAuthProvider {
 interface AuthContextType {
     user: IUser | undefined,
     signIn(email: string, password: string): Promise<void>,
+    signUp(name: string, email: string, password: string): Promise<void>,
     signOut(): void
 }
 
@@ -29,6 +31,21 @@ export function AuthProvider({children}: IAuthProvider) {
 
             setData(user);
             return toast.success(`Olá, ${user.name}`);
+        }).catch((error: AxiosError<IDataError>) => {
+            if (error.response) {
+                error.response.data.details? error.response.data.details.map((detail) => {
+                    toast.error(detail.message);
+                }) : toast.error(error.response.data.message);
+            }
+            console.log(error)
+        });
+    }
+
+    async function signUp(name: string, email: string, password: string): Promise<void> {
+        const navigate = useNavigate();
+        
+        api.post<IUser>("/users", { name, email, password }).then(() => {
+            navigate("/")
         }).catch((error: AxiosError<IDataError>) => {
             if (error.response) {
                 error.response.data.details? error.response.data.details.map((detail) => {
@@ -59,6 +76,7 @@ export function AuthProvider({children}: IAuthProvider) {
     return(
         <AuthContext.Provider value={{
             signIn,
+            signUp,
             signOut,
             user: data
         }}>

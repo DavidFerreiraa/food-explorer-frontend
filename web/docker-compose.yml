@@ -1,11 +1,9 @@
-version: '3'
 services:
-  app:
-    build: .                  # Build from Dockerfile in the current directory
-    container_name: my-node-container
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Your Dockerfile location
     ports:
-      - "5174:5174"
+      - "5174:5174"  # Map port 5174 of the container to port 5174 on your host
     volumes:
-      - .:/usr/src/app
-    working_dir: /usr/src/app
-    command: ["npm", "run", "dev"]  # Run npm run dev
+      - .:/usr/src/app  # Mount your application directory

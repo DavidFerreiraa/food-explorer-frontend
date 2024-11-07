@@ -19,4 +19,4 @@ COPY . .
 EXPOSE 5174
 
 # Run npm run dev by default
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host"]

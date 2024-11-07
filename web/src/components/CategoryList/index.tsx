@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { ICategory } from "../../interfaces/ICategory";
 import { ProductCard } from "../ProductCard";
 import { CarouselButton, CarouselButtonWrapper, CarouselWrapper, Container, ProdContainer, ProdWrapper, Title } from "./styles";
@@ -8,60 +9,38 @@ interface ICategoryList {
 }
 
 export function CategoryList({category}: ICategoryList) {
-    const items = document.querySelectorAll(`.${category.name}`);
-    const maxItems = category.Products.length;
-    let currentItem = 0;
+    const prodContainerRef = useRef<HTMLDivElement | null>(null);
+    const [currentItem, setCurrentItem] = useState(0);
+    const itemsPerPage = 3; // Quantidade de itens a serem visíveis por vez
+    const totalItems = category.Products.length;
+    // const items = document.querySelectorAll(`.${category.name}`);
+    // const maxItems = category.Products.length;
     
-    function handlePreviousButton() {
-        currentItem -= 1
-
-        if(currentItem >= maxItems) {
-            currentItem = 0;
+    // Função para rolar para o item anterior
+    const handlePreviousButton = () => {
+        const newIndex = currentItem - 1 < 0 ? totalItems - 1 : currentItem - 1;
+        setCurrentItem(newIndex);
+        if (prodContainerRef.current) {
+            const newScrollPosition = newIndex * (prodContainerRef.current.offsetWidth / itemsPerPage);
+            prodContainerRef.current.scrollTo({
+                left: newScrollPosition,
+                behavior: "smooth",
+            });
         }
+    };
 
-        if(currentItem < 0) {
-            currentItem = maxItems - 1;
+    // Função para rolar para o próximo item
+    const handleNextButton = () => {
+        const newIndex = (currentItem + 1) % totalItems;
+        setCurrentItem(newIndex);
+        if (prodContainerRef.current) {
+            const newScrollPosition = newIndex * (prodContainerRef.current.offsetWidth / itemsPerPage);
+            prodContainerRef.current.scrollTo({
+                left: newScrollPosition,
+                behavior: "smooth",
+            });
         }
-
-        items.forEach(item => {
-            item.classList.remove(`current-${category.name}`);
-            items[currentItem].classList.add(`current-${category.name}`)
-        });
-
-        items[currentItem].scrollIntoView({
-            inline: "nearest",
-            behavior: "smooth",
-            block: "nearest",
-        });
-    }
-
-    function handleNextButton() {
-        
-        currentItem += 1
-
-        if(currentItem >= maxItems) {
-            currentItem = 0;
-        }
-
-        if(currentItem < 0) {
-            currentItem = maxItems - 1;
-        }
-
-        if(currentItem < 0) {
-            currentItem = maxItems - 1;
-        }
-
-        items.forEach(item => {
-            item.classList.remove(`current-${category.name}`);
-            items[currentItem].classList.add(`current-${category.name}`)
-        });
-
-        items[currentItem].scrollIntoView({
-            inline: "nearest",
-            behavior: "smooth",
-            block: "nearest",
-        });
-    }
+    };
 
     return(
         <Container>
@@ -71,7 +50,7 @@ export function CategoryList({category}: ICategoryList) {
                     <CarouselButton onClick={handlePreviousButton}><PiCaretLeftLight size={40}/></CarouselButton>
                 </CarouselButtonWrapper>
                 <ProdWrapper>
-                    <ProdContainer>
+                    <ProdContainer ref={prodContainerRef}>
                         {
                             category.Products.map((products, index) => (
                                 <ProductCard className={index === 0?`${category.name} current-${category.name}`: `${category.name}`} key={String(index)} product={products.Product}/>

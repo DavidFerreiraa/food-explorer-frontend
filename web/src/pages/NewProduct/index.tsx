@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Header } from "../../components/Header";
 import { ButtonContainer, Container, CreateProductBody, Form, FormContainer, IngredientsContainer, TextAreaContainer, Title } from "./styles";
 import { Button } from "../../components/Button";
 import { RxCaretLeft } from "react-icons/rx";

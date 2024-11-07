@@ -14,6 +14,7 @@ export function FormSelector({data, label, ...rest}: IFormSelector){
             <Label htmlFor={label} id={label}>{label}</Label>
             <SelectContainer>
                 <Select id={label} {...rest}>
+                    <Option value="">Selecionar categoria</Option>
                     {
                         data && data.map((category, index) => (
                             <Option key={String(index)} value={category.id}>{category.name}</Option>

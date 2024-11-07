@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { IProduct } from "../../interfaces/IProduct";
 import { api } from "../../services/api";
-import { ClickableContainer, Container, ProdDescription, ProdPrice, ProdQuantityButton, ProdQuantityContainer, ProdQuantityInput, ProdTitle } from "./styles";
-import { FaHeart, FaMinus, FaPlus } from "react-icons/fa";
+import { ClickableContainer, Container, ProdDescription, ProdPrice, ProdTitle } from "./styles";
+import { FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { PiPencilSimpleBold } from "react-icons/pi";
-import { Button } from "../Button";
 import { useOrder } from "../../hooks/order";
 import { AxiosError } from "axios";
 import { IDataError } from "../../interfaces/IAppError";
 import { toast } from "react-toastify";
 import { IFavorite } from "../../interfaces/IFavorite";
 import { useAuth } from "../../hooks/auth";
+import { Link } from "react-router-dom";
+import { QuantityInput } from "../QuantityInput";
 
 export interface IProductCard extends React.HTMLAttributes<HTMLDivElement> {
     product: IProduct
@@ -68,34 +69,34 @@ export function ProductCard({ product, ...rest }: IProductCard) {
 
     function chooseActionIcon() {
         if (user?.Role === 'USER') {
-            if (favorite) {
-                return <CiHeart size={24}/>
-            }
-            return <FaHeart size={24} className="favorited"/>
+            return (
+                <ClickableContainer className="favorite-icon" onClick={handleFavorite}>
+                    { favorite? <FaHeart size={24} className="favorited"/> : <CiHeart size={24}/>}
+                </ClickableContainer>
+            )
         }
 
         if (user?.Role === 'ADMIN') {
-            return <PiPencilSimpleBold size={24}/>
+            return (
+                <ClickableContainer className="favorite-icon">
+                    <PiPencilSimpleBold size={24} />
+                </ClickableContainer>
+            )
         }
     }
 
     return (
         <Container {...rest}>
-            <ClickableContainer className="favorite-icon" onClick={handleFavorite}>
                 { chooseActionIcon() }
-            </ClickableContainer>
-            <ClickableContainer>
-                <img src={avatarURL} alt="imagem do produto" />
-                <ProdTitle>{product.title} &#11166;</ProdTitle>
-                <ProdDescription>{product.description}</ProdDescription>
-                <ProdPrice>R${(product.price).padEnd(5, ".00")}</ProdPrice>
-            </ClickableContainer>
-            <ProdQuantityContainer>
-                <ProdQuantityButton onClick={() => setQuantity(quantity - 1)}><FaMinus size={24}/></ProdQuantityButton>
-                <ProdQuantityInput type="number" value={String(quantity).padStart(2, "0")} onChange={(e) => setQuantity(Number(e.target.value))}/>
-                <ProdQuantityButton onClick={() => setQuantity(quantity + 1)}><FaPlus size={24}/></ProdQuantityButton>
-                <Button title="incluir" onClick={handleIncludeOrder}/>
-            </ProdQuantityContainer>
+            <Link to={`/showproduct/${product.id}`}>
+                <ClickableContainer>
+                    <img src={avatarURL} alt="imagem do produto" />
+                    <ProdTitle>{product.title} &#11166;</ProdTitle>
+                    <ProdDescription>{product.description}</ProdDescription>
+                    <ProdPrice>R${(product.price).padEnd(5, ".00")}</ProdPrice>
+                </ClickableContainer>
+            </Link>
+            <QuantityInput includeButtonTitle="incluir" quantity={quantity} handleChange={setQuantity} handleIncludeOrder={handleIncludeOrder}/>
         </Container>
     );
 }

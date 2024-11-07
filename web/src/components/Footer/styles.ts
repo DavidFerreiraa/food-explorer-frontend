@@ -6,8 +6,6 @@ export const Container = styled.footer`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: absolute;
-    z-index: 2;
 
     padding: 2.4rem 12.3rem;
 

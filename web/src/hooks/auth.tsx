@@ -59,7 +59,7 @@ export function AuthProvider({children}: IAuthProvider) {
     function signOut() {
         localStorage.removeItem("@foodexplorer:user");
         Cookies.remove("token");
-        Cookies.remove("token_expiration");
+        Cookies.remove("refreshToken");
         
         setData(undefined);
         return toast.success("Até a próxima.")

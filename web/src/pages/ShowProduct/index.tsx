@@ -29,12 +29,12 @@ export function ShowProduct() {
     }
 
     function chooseButton() {
-        if (user?.Role === "USER") {
-            return <Link to={`/editplate/${id}`}><Button title={`incluir`}/></Link>
+        if (user?.Role === "ADMIN") {
+            return <Link to={`/editplate/${id}`}><Button title={`Editar prato`}/></Link>
         }
 
-        if (user?.Role === "ADMIN") {
-            return <QuantityInput includeButtonTitle={`inluir - R$ ${totalPrice}`} quantity={quantity} handleChange={setQuantity} handleIncludeOrder={handleIncludeOrder} />
+        if (user?.Role === "USER") {
+            return <QuantityInput includeButtonTitle={`inluir - R$ ${totalPrice.toFixed(2)}`} quantity={quantity} handleChange={setQuantity} handleIncludeOrder={handleIncludeOrder} />
         }
     }
 

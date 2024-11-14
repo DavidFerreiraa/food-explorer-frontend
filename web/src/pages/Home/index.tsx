@@ -2,16 +2,19 @@ import { Container } from "./styles";
 import Banner from "../../assets/banner.svg";
 import { CategoryList } from "../../components/CategoryList";
 import { useCategory } from "../../hooks/category";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ICategory } from "../../interfaces/ICategory";
 
 export function Home() {
-    const { categories, fetchCategories } = useCategory();
+    const { fetchCategories } = useCategory();
+    const [ categories, setCategories ] = useState<ICategory[] | undefined>(undefined);
 
     useEffect(() => {
-        fetchCategories();
+        fetchCategories().then((categories) => {
+            setCategories(categories);
+        });
     }, [])
 
-    console.log(categories);
     return(
         <Container>
             <img src={Banner} alt="Sabores inigualáveis - banner"/>

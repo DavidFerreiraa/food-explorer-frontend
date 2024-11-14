@@ -78,7 +78,7 @@ export function ProductCard({ product, ...rest }: IProductCard) {
 
         if (user?.Role === 'ADMIN') {
             return (
-                <Link to={`/editplate/${product.id}`} className="favorite-icon">
+                <Link to={`/editproduct/${product.id}`} className="favorite-icon">
                     <PiPencilSimpleBold size={24} />
                 </Link>
             )

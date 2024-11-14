@@ -9,19 +9,24 @@ import { api } from "../../services/api";
 import { useAuth } from "../../hooks/auth";
 import { QuantityInput } from "../../components/QuantityInput";
 import { useOrder } from "../../hooks/order";
+import { IProduct } from "../../interfaces/IProduct";
+import { RiLoader3Fill } from "react-icons/ri";
 
 export function ShowProduct() {
     const { id } = useParams();
     const { user } = useAuth();
     const { createOrder } = useOrder();
-    const { product, showProduct } = useProduct();
+    const { showProduct } = useProduct();
+
+    const [loading, setLoading] = useState(true);
+
     const [quantity, setQuantity] = useState<number>(1);
-    
+    const [product, setProduct] = useState<IProduct | undefined>(undefined);
     const productImageUrl = `${api.defaults.baseURL}/files/${product?.imageUrl}`;
     const totalPrice = Number(product?.price) * quantity;
 
     async function handleIncludeOrder() {
-        if (!product) {
+        if(!product) {
             return;
         }
         await createOrder({totalPrice, quantity, productId: product.id});
@@ -30,7 +35,7 @@ export function ShowProduct() {
 
     function chooseButton() {
         if (user?.Role === "ADMIN") {
-            return <Link to={`/editplate/${id}`}><Button title={`Editar prato`}/></Link>
+            return <Link to={`/editproduct/${id}`}><Button title={`Editar prato`}/></Link>
         }
 
         if (user?.Role === "USER") {
@@ -39,8 +44,18 @@ export function ShowProduct() {
     }
 
     useEffect(() => {
-        showProduct(id);
+        if (id) {
+            showProduct(id).then((product) => {
+                setProduct(product);
+                setLoading(false);
+            });
+        }
     }, [])
+
+    // Show a loader while the page is loading
+    if (loading) {
+        return <RiLoader3Fill color="#fff"/>;
+    }
 
     return (
         <Container>

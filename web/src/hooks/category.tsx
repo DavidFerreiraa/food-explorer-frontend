@@ -10,19 +10,36 @@ interface ICategoryProvider {
 }
 
 interface CategoryContextType {
-    categories: ICategory[] | undefined,
-    fetchCategories(): Promise<ICategory | void>
+    fetchCategories(): Promise<ICategory[] | undefined>
+    showCategory(id: string | undefined): Promise<ICategory | undefined>
 }
 
 export const CategoryContext = createContext<CategoryContextType | undefined>(undefined);
 
 export function CategoryProvider({children}: ICategoryProvider) {
-    const [data, setData] = useState<ICategory[] | undefined>(undefined)
-
-    async function fetchCategories(): Promise<ICategory | void> {
-        await api.get("/categories").then((response) => {
+    async function fetchCategories(): Promise<ICategory[] | undefined> {
+        return await api.get("/categories").then((response) => {
             const categories = response.data;
-            setData(categories);
+            return categories;
+        }).catch((error: AxiosError<IDataError>) => {
+            if (error.response) {
+                error.response.data.details ? error.response.data.details.map((detail) => {
+                    toast.error(detail.message);
+                }) : toast.error(error.response.data.message);
+            }
+            console.log(error);
+        });
+    }
+
+    async function showCategory(id: string | undefined): Promise<ICategory | undefined> {
+
+        if (!id) {
+            toast.warn("Não foi possível acessar o produto, volte e tente novamente.");
+            return;
+        }
+        return await api.get(`/categories/${id}`).then((response) => {
+            const category = response.data;
+            return category;
         }).catch((error: AxiosError<IDataError>) => {
             if (error.response) {
                 error.response.data.details? error.response.data.details.map((detail) => {
@@ -35,8 +52,8 @@ export function CategoryProvider({children}: ICategoryProvider) {
 
     return(
         <CategoryContext.Provider value={{
-            categories: data,
-            fetchCategories
+            fetchCategories,
+            showCategory
         }}>
             {children}
         </CategoryContext.Provider>

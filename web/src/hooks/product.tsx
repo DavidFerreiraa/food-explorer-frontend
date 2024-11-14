@@ -15,25 +15,18 @@ interface ICreateProduct {
 }
 
 interface ProductContextType {
-    product: IProduct | undefined
-    showProduct(id: string | undefined): Promise<IProduct | void>,
-    createProduct({product, file}: ICreateProduct): Promise<IProduct | void>
+    showProduct(id: string): Promise<IProduct | undefined>,
+    createProduct({product, file}: ICreateProduct): Promise<IProduct | undefined>
+    updateProduct({product, file}: Partial<ICreateProduct>, id: string): Promise<IProduct | undefined>
 }
 
 export const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export function ProductProvider({children}: IProductProvider) {
-    const [ data, setData ] = useState<IProduct | undefined>();
-
-    async function showProduct(id: string | undefined): Promise<IProduct | void> {
-
-        if (!id) {
-            toast.warn("Não foi possível acessar o produto, volte e tente novamente.");
-            return;
-        }
-        await api.get(`/products/${id}`).then((response) => {
+    async function showProduct(id: string): Promise<IProduct | undefined> {
+        return await api.get(`/products/${id}`).then((response) => {
             const product = response.data;
-            setData(product);
+            return product;
         }).catch((error: AxiosError<IDataError>) => {
             if (error.response) {
                 error.response.data.details? error.response.data.details.map((detail) => {
@@ -42,9 +35,10 @@ export function ProductProvider({children}: IProductProvider) {
             }
             console.log(error)
         });
+        return undefined;
     }
 
-    async function createProduct({product, file}: ICreateProduct): Promise<IProduct | void> {
+    async function createProduct({product, file}: ICreateProduct): Promise<IProduct | undefined> {
         const fileUploadForm = new FormData();
         fileUploadForm.append("productImage", file);
         fileUploadForm.append("json", JSON.stringify(product));
@@ -69,11 +63,38 @@ export function ProductProvider({children}: IProductProvider) {
         return productCreated
     }
 
+    async function updateProduct({product, file}: Partial<ICreateProduct>, id: string): Promise<IProduct | undefined> {
+        const fileUploadForm = new FormData();
+        if (file) {
+            fileUploadForm.append("productImage", file);
+        }
+        fileUploadForm.append("json", JSON.stringify(product));
+
+        let productUpdated = undefined
+
+        await api.put(`/products/${id}`, fileUploadForm)
+        .then((response) => {
+            toast.success("Product updated!");
+            productUpdated = response.data;
+            return productUpdated;
+        })
+        .catch((error: AxiosError<IDataError>) => {
+            if (error.response) {
+                error.response.data.details? error.response.data.details.map((detail) => {
+                    toast.error(detail.message);
+                }) : toast.error(error.response.data.message);
+            }
+            console.log(error)
+        });
+        
+        return productUpdated
+    }
+
     return(
         <ProductContext.Provider value={{
-            product: data,
             showProduct,
-            createProduct
+            createProduct,
+            updateProduct
         }}>
             {children}
         </ProductContext.Provider>

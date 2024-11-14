@@ -19,6 +19,8 @@ export const Container = styled.div`
 
     input[type=number]{ //remove arrows from input type number in mozzila browser
         -moz-appearance: textfield;
+        //Also define the standard property 'appearance' for compatibility
+        appearance: textfield;
     }
 
     input::-webkit-outer-spin-button,

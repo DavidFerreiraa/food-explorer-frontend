@@ -16,6 +16,7 @@ interface ICreateProduct {
 
 interface ProductContextType {
     showProduct(id: string): Promise<IProduct | undefined>,
+    deleteProduct(id: string): Promise<void>,
     createProduct({product, file}: ICreateProduct): Promise<IProduct | undefined>
     updateProduct({product, file}: Partial<ICreateProduct>, id: string): Promise<IProduct | undefined>
 }
@@ -36,6 +37,17 @@ export function ProductProvider({children}: IProductProvider) {
             console.log(error)
         });
         return undefined;
+    }
+
+    async function deleteProduct(id: string): Promise<void> {
+        await api.delete(`/products/${id}`).catch((error: AxiosError<IDataError>) => {
+            if (error.response) {
+                error.response.data.details? error.response.data.details.map((detail) => {
+                    toast.error(detail.message);
+                }) : toast.error(error.response.data.message);
+            }
+            console.log(error)
+        });
     }
 
     async function createProduct({product, file}: ICreateProduct): Promise<IProduct | undefined> {
@@ -93,6 +105,7 @@ export function ProductProvider({children}: IProductProvider) {
     return(
         <ProductContext.Provider value={{
             showProduct,
+            deleteProduct,
             createProduct,
             updateProduct
         }}>

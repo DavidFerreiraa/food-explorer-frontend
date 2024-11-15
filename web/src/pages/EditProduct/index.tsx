@@ -16,7 +16,7 @@ import { ICategory } from "../../interfaces/ICategory";
 import { IProduct } from "../../interfaces/IProduct";
 
 export function EditProduct() {
-    const { updateProduct, showProduct } = useProduct();
+    const { updateProduct, showProduct, deleteProduct } = useProduct();
     const { fetchCategories } = useCategory();
     const { id } = useParams();
     const navigate = useNavigate();
@@ -81,6 +81,10 @@ export function EditProduct() {
             formChanged = true;
         }
 
+        if (plateImage) {
+            formChanged = true;
+        }
+
         if (JSON.stringify(ingredients) !== JSON.stringify(initialProductData.Ingredients.map((ingredient) => ingredient.name))) {
             formChanged = true;
         }
@@ -97,7 +101,7 @@ export function EditProduct() {
         }
 
         setIsFormChanged(formChanged);
-    }, [title, price, ingredients, description, categorySelected])
+    }, [title, price, ingredients, description, categorySelected, plateImage])
 
     // Function that deal with new items addeds
     function handleAddItem(event?: React.KeyboardEvent<HTMLInputElement>) {
@@ -154,6 +158,20 @@ export function EditProduct() {
         });
     }
 
+    async function handleDeleteProduct() {
+        if (!id) {
+            return toast.error("Id do produto não fornecido nos parâmetros")
+        }
+
+        await deleteProduct(id).then(() => {
+            toast.success("Produto excluído com sucesso!");
+            navigate("..");
+        }).catch((error) => {
+            toast.error("Erro ao excluir o produto.");
+            console.error(error);
+        });
+    }
+
     // Show a loader while the page is loading
     if (loading) {
         return <RiLoader3Fill/>;
@@ -191,6 +209,7 @@ export function EditProduct() {
                         <FormTextArea value={description} label="Descrição" placeholder="Fale brevemente sobre o prato, seus ingredientes e composição" onChange={(e) => setDescription(e.target.value)} />
                     </TextAreaContainer>
                     <ButtonContainer>
+                        <Button title="Excluir prato" type="button" secondary onClick={handleDeleteProduct} />
                         <Button title="Salvar alterações" type="submit" disabled={!isFormChanged} />
                     </ButtonContainer>
                 </Form>

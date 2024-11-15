@@ -13,6 +13,7 @@ import { useProduct } from "../../hooks/product";
 import { useCategory } from "../../hooks/category";
 import { RiLoader3Fill } from "react-icons/ri";
 import { ICategory } from "../../interfaces/ICategory";
+import { IProduct } from "../../interfaces/IProduct";
 
 export function EditProduct() {
     const { updateProduct, showProduct } = useProduct();
@@ -25,6 +26,8 @@ export function EditProduct() {
 
     // Set the states to the form fields
     const [haveFile, setHaveFile] = useState<"file" | "fileSelected">("file");
+    const [initialProductData, setInitialProductData] = useState<IProduct | undefined>(undefined)
+    const [isFormChanged, setIsFormChanged] = useState<boolean>(false);
     const [plateImage, setPlateImage] = useState<File | undefined>(undefined);
     const [title, setTitle] = useState<string>("");
     const [categories, setCategories] = useState<ICategory[] | undefined>(undefined);
@@ -46,6 +49,7 @@ export function EditProduct() {
                     setIngredients(product.Ingredients.map((ingredient) => ingredient.name));
                     setPrice(product.price);
                     setDescription(product.description);
+                    setInitialProductData(product);
                 }
 
                 if (categories) {
@@ -54,9 +58,7 @@ export function EditProduct() {
                 }
 
                 if (categories && product) {
-                    console.log(product)
                     const selectedCategory = categories.find((category) => product.Categories[0].categoryId === category.id)?.id || ""
-                    console.log(categories.find((category) => product.Categories[0].categoryId === category.id))
                     setCategorySelected(selectedCategory);
                 }
 
@@ -68,6 +70,34 @@ export function EditProduct() {
             });
         }
     }, []);
+
+    useEffect(() => {
+        let formChanged = false;
+        if (!initialProductData) {
+            return;
+        }
+
+        if (title !== initialProductData.title) {
+            formChanged = true;
+        }
+
+        if (JSON.stringify(ingredients) !== JSON.stringify(initialProductData.Ingredients.map((ingredient) => ingredient.name))) {
+            formChanged = true;
+        }
+
+        if (price !== initialProductData.price) {
+            formChanged = true;
+        }
+
+        if (description !== initialProductData.description) {
+            formChanged = true;
+        }
+        if (categorySelected !== initialProductData.Categories[0].categoryId) {
+            formChanged = true;
+        }
+
+        setIsFormChanged(formChanged);
+    }, [title, price, ingredients, description, categorySelected])
 
     // Function that deal with new items addeds
     function handleAddItem(event?: React.KeyboardEvent<HTMLInputElement>) {
@@ -128,7 +158,7 @@ export function EditProduct() {
     if (loading) {
         return <RiLoader3Fill/>;
     }
-    console.log(categorySelected)
+
     return (
         <Container>
             <CreateProductBody>
@@ -161,7 +191,7 @@ export function EditProduct() {
                         <FormTextArea value={description} label="Descrição" placeholder="Fale brevemente sobre o prato, seus ingredientes e composição" onChange={(e) => setDescription(e.target.value)} />
                     </TextAreaContainer>
                     <ButtonContainer>
-                        <Button title="Salvar alterações" type="submit" />
+                        <Button title="Salvar alterações" type="submit" disabled={!isFormChanged} />
                     </ButtonContainer>
                 </Form>
             </CreateProductBody>

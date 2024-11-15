@@ -13,7 +13,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
         flex-direction: column;
 
         padding: 2.4rem;
@@ -28,6 +28,12 @@ export const Holder = styled.div`
 
     > img {
         max-width: 28rem;
+    }
+
+    @media (max-width: 900px) {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 clamp(3.2rem, 4.7rem, 6.2rem) 0 clamp(5.2rem, 6.7rem, 8.2rem);
     }
 `;
 
@@ -48,10 +54,16 @@ export const Form = styled.form`
 
     border-radius: 1.6rem;
 
-    @media (max-width: 768px) {
-        padding: 3.2rem;
+    @media (max-width: 900px) {
+        padding: clamp(3.2rem, 6.4rem, 7.2rem) 0;
+        width: 100%;
+        max-width: 100%;
 
-        background: none;
+        background-color: ${({ theme }) => theme.COLORS.DARK_100};
+
+        > button {
+            width: 100%;
+        }
     }
 `;
 
@@ -62,4 +74,8 @@ export const Legend = styled.h1`
     line-height: 140%;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    @media (max-width: 900px) {
+        display: none !important;
+    }
 `;

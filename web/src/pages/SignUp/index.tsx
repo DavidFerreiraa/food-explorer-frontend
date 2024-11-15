@@ -26,7 +26,7 @@ export function SignUp() {
             </Holder>
             <Holder>
                 <Form onSubmit={(event) => handleSignIn(event)}>
-                    <Legend>Faça login</Legend>
+                    <Legend>Crie sua conta</Legend>
                     <FormField placeholder="Exemplo: Maria da Silva" label="Seu nome" htmlFor="name" onChange={(e) => {setName(e.target.value)}}/>
                     <FormField placeholder="Exemplo: exemplo@exemplo.com.br" label="Email" htmlFor="email" onChange={(e) => {setEmail(e.target.value)}}/>
                     <FormField placeholder="No mínimo 6 caracteres" label="Senha" htmlFor="password" onChange={(e) => {setPassword(e.target.value)}}/>

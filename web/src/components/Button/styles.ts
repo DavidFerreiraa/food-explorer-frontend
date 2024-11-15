@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.button<{$onlytext: boolean}>`
+export const Container = styled.button<{$onlytext: boolean, $secondary: boolean}>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,7 +8,7 @@ export const Container = styled.button<{$onlytext: boolean}>`
 
     padding: ${({ $onlytext }) => $onlytext? "" : "1.2rem 3.2rem"};
 
-    background-color: ${({ theme, $onlytext }) => $onlytext? "transparent" : theme.COLORS.TOMATO_100};
+    background-color: ${({ theme, $onlytext, $secondary }) => $secondary? theme.COLORS.DARK_800 :$onlytext? "transparent" : theme.COLORS.TOMATO_100};
 
     border: none;
     border-radius: .5rem;
@@ -21,10 +21,10 @@ export const Container = styled.button<{$onlytext: boolean}>`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     &:hover {
-        background-color: ${({ theme, $onlytext }) => $onlytext? "transparent" : theme.COLORS.TOMATO_200};
+        background-color: ${({ theme, $onlytext, $secondary }) => $secondary? theme.COLORS.DARK_600 : $onlytext? "transparent" : theme.COLORS.TOMATO_200};
     }
 
     &:disabled {
-        background-color: ${({ theme, $onlytext }) => $onlytext? "transparent" : theme.COLORS.TOMATO_400};
+        background-color: ${({ theme, $onlytext, $secondary }) => $secondary? theme.COLORS.DARK_1000 :$onlytext? "transparent" : theme.COLORS.TOMATO_400};
     }
 `;

@@ -56,8 +56,10 @@ export const ButtonContainer = styled.div`
     display: flex;
     align-items: end;
     justify-content: flex-end;
-    field-sizing: content;
-    grid-column: -2;
+    justify-self: end;
+    gap: 3.2rem;
+    width: fit-content;
+    grid-column: 1 / -1;
 `;
 
 export const IngredientsContainer = styled.div`

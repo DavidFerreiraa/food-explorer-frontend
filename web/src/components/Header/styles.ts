@@ -13,7 +13,7 @@ export const Container = styled.div`
 
     background-color: ${({ theme }) => theme.COLORS.DARK_600};
 
-    > img {
+    #logo {
         width: 19.7rem;
         height: 3rem;
     }
@@ -31,11 +31,31 @@ export const Container = styled.div`
             display: none;
         }
 
-        #btn-desktop {
+        .btn-desktop {
             display: none;
         }
 
         #btn-mobile {
+            display: none;
+        }
+    }
+
+    @media (max-width: 1350px) {
+        align-items: center;
+        justify-content: space-between;
+        padding: 5.4rem 5.4rem 2.2rem;
+
+
+        #logo {
+            width: 16rem;
+            height: 2%.5;
+        }
+
+        > #burguer {
+            display: flex;
+        }
+
+        #search, .history, .favorites{
             display: none;
         }
     }
@@ -59,7 +79,7 @@ export const Container = styled.div`
             display: none;
         }
 
-        > #btn-desktop {
+        > .btn-desktop {
             display: none;
         }
 

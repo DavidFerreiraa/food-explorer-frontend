@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-    width: 34.4rem;
+    width: calc(100%/6);
 
     display: flex;
     align-items: center;
@@ -10,7 +10,7 @@ export const Container = styled.div`
 
     flex-grow: 1;
 
-    padding: 1.6rem 1.4rem;
+    padding: 1.6rem;
 
     background-color: ${({ theme }) => theme.COLORS.DARK_900};
 
@@ -30,7 +30,7 @@ export const Container = styled.div`
 
     @media (max-width: 900px) {
         width: 100%;
-        padding: 1.2rem 1.4rem;
+        padding: 1.2rem;
 
         > svg {
             width: 2rem;

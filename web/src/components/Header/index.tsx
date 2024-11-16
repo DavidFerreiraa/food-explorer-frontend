@@ -60,13 +60,19 @@ export function Header() {
 
             <SearchInput placeholder="Busque por pratos ou ingredientes" onChange={(e) => {handleSearch(e)}}/>
 
-            <Link id="btn-desktop" to={user?.Role === "ADMIN"? "/newproduct": ""}>
+            <Link className="btn-desktop favorites" to="/favorites">
+                <Button title="Meus favoritos" onlyText/>
+            </Link>
+            <Link className="btn-desktop history" to="/orders/history">
+                <Button title="Histórico de pedidos" onlyText/>
+            </Link>
+            <Link className="btn-desktop" to={user?.Role === "ADMIN"? "/newproduct": "/orders"}>
                 <Button icon={user?.Role === "USER" && <PiReceiptBold/>} title={user?.Role === "ADMIN"?"Novo prato":`Pedidos (${orders? orders.length : 0})`}/>
             </Link>
 
             <LogOut/>
 
-            <Link id="btn-mobile" to={user?.Role === "ADMIN"? "/newproduct": ""}>
+            <Link id="btn-mobile" to="/orders">
                 <Button icon={user?.Role === "USER" && <PiReceiptBold size={24}/>} onlyText title=""/>
                 {user?.Role === "USER" && <div id="order-count"><span>{orders? orders.length : 0}</span></div>}
             </Link>

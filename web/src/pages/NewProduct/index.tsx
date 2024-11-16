@@ -10,7 +10,6 @@ import { ICategory } from "../../interfaces/ICategory";
 import { Label } from "../../components/FormField/styles";
 import { Item } from "../../components/Item";
 import { FormTextArea } from "../../components/FormTextArea";
-import { Footer } from "../../components/Footer";
 import { toast } from "react-toastify";
 import { useProduct } from "../../hooks/product";
 

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { api } from "../services/api";
 import { IDataError } from "../interfaces/IAppError";
 import { toast } from "react-toastify";
@@ -24,22 +24,17 @@ interface IOrderCreated {
 }
 
 interface OrderContextType {
-    orders: IOrder[] | undefined,
-    fetchOrders(): Promise<IOrder | void>
+    fetchOrders(search?: string): Promise<IOrder[] | undefined>
     createOrder({totalPrice, quantity, productId}: ICreateOrder): Promise<IOrderCreated | void>
 }
 
 export const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
 export function OrderProvider({children}: IOrderProvider) {
-    const [data, setData] = useState<IOrder[] | undefined>(undefined)
-
-    let orderCreated = undefined
-
-    async function fetchOrders(): Promise<IOrder | void> {
-        await api.get("/orders").then((response) => {
+    async function fetchOrders(): Promise<IOrder[] | undefined> {
+        return await api.get("/orders").then((response) => {
             const orders = response.data;
-            setData(orders);
+            return orders
         }).catch((error: AxiosError<IDataError>) => {
             if (error.response) {
                 error.response.data.details? error.response.data.details.map((detail) => {
@@ -54,7 +49,7 @@ export function OrderProvider({children}: IOrderProvider) {
         await api.post(`/orders/${productId}`, {totalPrice, quantity})
         .then((response) => {
             toast.success("Order created!");
-            orderCreated = response.data;
+            const orderCreated = response.data;
             return orderCreated;
         })
         .catch((error: AxiosError<IDataError>) => {
@@ -69,7 +64,6 @@ export function OrderProvider({children}: IOrderProvider) {
 
     return(
         <OrderContext.Provider value={{
-            orders: data,
             fetchOrders,
             createOrder
         }}>

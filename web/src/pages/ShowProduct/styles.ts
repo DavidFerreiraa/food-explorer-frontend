@@ -6,6 +6,10 @@ export const Container = styled.div`
     padding: 3.2rem 12.2rem;
 
     background-color: ${({ theme }) => theme.COLORS.DARK_100};
+
+    @media (max-width: 900px) {
+        padding: 1.6rem 5.4rem;
+    }
 `;
 
 export const ShowProductBody = styled.div`
@@ -14,6 +18,10 @@ export const ShowProductBody = styled.div`
 
     > a {
         align-self: start;
+    }
+
+    @media (max-width: 900px) {
+        padding: 2rem 0;
     }
 `;
 
@@ -32,6 +40,15 @@ export const ProdContainer = styled.div`
         width: 39.011rem;
         height: 38.9rem;
     }
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+        text-align: center;
+        > img {
+            width: 26.4rem;
+            height: 26.4rem;
+        }
+    }
 `;
 
 export const ProdDetailContainer = styled.div`
@@ -39,6 +56,10 @@ export const ProdDetailContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 2.4rem;
+
+    @media (max-width: 900px) {
+        align-items: center;
+    }
 `;
 
 export const ProdTitle = styled.h3`
@@ -48,6 +69,11 @@ export const ProdTitle = styled.h3`
     line-height: 140%;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+    @media (max-width: 900px) {
+        font-size: 2.8rem;
+        text-align: center;
+    }
 `;
 
 export const ProdDescription = styled.p`
@@ -57,6 +83,11 @@ export const ProdDescription = styled.p`
     line-height: 140%;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
+
+    @media (max-width: 900px) {
+        font-size: 1.6rem;
+        text-align: center;
+    }
 `;
 
 export const ProdIngredientWrapper = styled.div`
@@ -65,6 +96,12 @@ export const ProdIngredientWrapper = styled.div`
     gap: 1.2rem;
 
     width: 100%;
+
+    @media (max-width: 900px) {
+        display: grid;
+        place-items: center;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 `;
 
 export const ProdIngredient = styled.div`

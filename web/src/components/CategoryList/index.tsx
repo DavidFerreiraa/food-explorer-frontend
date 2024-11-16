@@ -3,12 +3,14 @@ import { ICategory } from "../../interfaces/ICategory";
 import { ProductCard } from "../ProductCard";
 import { CarouselButton, CarouselButtonWrapper, CarouselWrapper, Container, ProdContainer, ProdWrapper, Title } from "./styles";
 import { PiCaretLeftLight, PiCaretRightLight } from "react-icons/pi";
+import { useProduct } from "../../hooks/product";
 
 interface ICategoryList {
     category: ICategory
 }
 
 export function CategoryList({category}: ICategoryList) {
+    const { products } = useProduct();
     const prodContainerRef = useRef<HTMLDivElement | null>(null);
     const [currentItem, setCurrentItem] = useState(0);
     const itemsPerPage = 3; // Quantidade de itens a serem visíveis por vez
@@ -40,6 +42,23 @@ export function CategoryList({category}: ICategoryList) {
         }
     };
 
+    function handleProducts() {
+        if (products) {
+            return products.map((product, index) => {
+                const productInCategory = category.Products.find((categoryProducts) => categoryProducts.Product.id === product.id)
+
+                if (productInCategory) {
+                    return (
+                    <ProductCard className={index === 0?`${category.name} current-${category.name}`: `${category.name}`} key={String(index)} product={product}/>)
+                }
+                return null
+            })
+        }
+        return category.Products.map((products, index) => (
+            <ProductCard className={index === 0?`${category.name} current-${category.name}`: `${category.name}`} key={String(index)} product={products.Product}/>
+        ))
+    }
+
     return(
         <Container>
             <Title>{category.name}</Title>
@@ -50,9 +69,7 @@ export function CategoryList({category}: ICategoryList) {
                 <ProdWrapper>
                     <ProdContainer ref={prodContainerRef}>
                         {
-                            category.Products.map((products, index) => (
-                                <ProductCard className={index === 0?`${category.name} current-${category.name}`: `${category.name}`} key={String(index)} product={products.Product}/>
-                            ))
+                            handleProducts()
                         }
                     </ProdContainer>
                 </ProdWrapper>

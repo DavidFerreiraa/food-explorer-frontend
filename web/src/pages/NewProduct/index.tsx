@@ -134,7 +134,6 @@ export function NewProduct() {
                     </ButtonContainer>
                 </Form>
             </CreateProductBody>
-            <Footer/>
         </Container>
     );
 }

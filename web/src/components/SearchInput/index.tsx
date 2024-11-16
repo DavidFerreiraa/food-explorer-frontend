@@ -4,7 +4,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 export function SearchInput({...rest}: InputHTMLAttributes<HTMLInputElement> ) {
     return(
-        <Container>
+        <Container id="search">
             <label htmlFor="search"/>
             <IoSearchSharp size={24}/>
             <Input {...rest} id="search" name="search"/>

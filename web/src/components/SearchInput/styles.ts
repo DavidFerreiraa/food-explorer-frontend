@@ -27,6 +27,16 @@ export const Container = styled.div`
             display: none;
         }
     }
+
+    @media (max-width: 900px) {
+        width: 100%;
+        padding: 1.2rem 1.4rem;
+
+        > svg {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
 `;
 
 export const Input = styled.input`

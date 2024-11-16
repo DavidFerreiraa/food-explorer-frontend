@@ -71,7 +71,7 @@ export function ProductCard({ product, ...rest }: IProductCard) {
         if (user?.Role === 'USER') {
             return (
                 <ClickableContainer className="favorite-icon" onClick={handleFavorite}>
-                    { favorite? <FaHeart size={24} className="favorited"/> : <CiHeart size={24}/>}
+                    { favorite? <FaHeart className="favorited"/> : <CiHeart size={24}/>}
                 </ClickableContainer>
             )
         }
@@ -79,7 +79,7 @@ export function ProductCard({ product, ...rest }: IProductCard) {
         if (user?.Role === 'ADMIN') {
             return (
                 <Link to={`/editproduct/${product.id}`} className="favorite-icon">
-                    <PiPencilSimpleBold size={24} />
+                    <PiPencilSimpleBold />
                 </Link>
             )
         }
@@ -91,7 +91,7 @@ export function ProductCard({ product, ...rest }: IProductCard) {
             <Link to={`/showproduct/${product.id}`}>
                 <ClickableContainer>
                     <img src={avatarURL} alt="imagem do produto" />
-                    <ProdTitle>{product.title} &#11166;</ProdTitle>
+                    <ProdTitle>{product.title}</ProdTitle>
                     <ProdDescription>{product.description}</ProdDescription>
                     <ProdPrice>R${(product.price).padEnd(5, ".00")}</ProdPrice>
                 </ClickableContainer>

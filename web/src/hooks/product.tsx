@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { api } from "../services/api";
 import { IDataError } from "../interfaces/IAppError";
 import { toast } from "react-toastify";
@@ -15,15 +15,48 @@ interface ICreateProduct {
 }
 
 interface ProductContextType {
+    products: IProduct[] | undefined,
     showProduct(id: string): Promise<IProduct | undefined>,
+    fetchProducts(searchTerm?: string): Promise<IProduct[] | undefined>,
     deleteProduct(id: string): Promise<void>,
-    createProduct({product, file}: ICreateProduct): Promise<IProduct | undefined>
+    createProduct({product, file}: ICreateProduct): Promise<IProduct | undefined>,
     updateProduct({product, file}: Partial<ICreateProduct>, id: string): Promise<IProduct | undefined>
 }
 
 export const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export function ProductProvider({children}: IProductProvider) {
+    const [data, setData] = useState<IProduct[] | undefined>(undefined)
+
+    async function fetchProducts(searchTerm?: string): Promise<IProduct[] | undefined> {
+        if (searchTerm) {
+            return await api.get(`/products?searchTerm=${searchTerm}`).then((response) => {
+                const orders = response.data;
+                setData(orders)
+                return orders
+            }).catch((error: AxiosError<IDataError>) => {
+                if (error.response) {
+                    error.response.data.details? error.response.data.details.map((detail) => {
+                        toast.error(detail.message);
+                    }) : toast.error(error.response.data.message);
+                }
+                console.log(error)
+            });
+        }
+        return await api.get(`/products`).then((response) => {
+            const product = response.data;
+            setData(product)
+            return product;
+        }).catch((error: AxiosError<IDataError>) => {
+            if (error.response) {
+                error.response.data.details? error.response.data.details.map((detail) => {
+                    toast.error(detail.message);
+                }) : toast.error(error.response.data.message);
+            }
+            console.log(error)
+        });
+    }
+
     async function showProduct(id: string): Promise<IProduct | undefined> {
         return await api.get(`/products/${id}`).then((response) => {
             const product = response.data;
@@ -36,7 +69,6 @@ export function ProductProvider({children}: IProductProvider) {
             }
             console.log(error)
         });
-        return undefined;
     }
 
     async function deleteProduct(id: string): Promise<void> {
@@ -104,7 +136,9 @@ export function ProductProvider({children}: IProductProvider) {
 
     return(
         <ProductContext.Provider value={{
+            products: data,
             showProduct,
+            fetchProducts,
             deleteProduct,
             createProduct,
             updateProduct

@@ -11,7 +11,22 @@ export const Container = styled.footer`
 
     background-color: ${({ theme }) => theme.COLORS.DARK_600};
 
-    > p {
+    p {
+        font-weight: 400;
+
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    }
+
+    @media (max-width: 900px) {
+        padding: 0 2.4rem;
+
+        img {
+            width: 14.2rem;
+            height: 1.5rem;
+        }
+
+        p {
+            font-size: 1.4rem;
+        }
     }
 `;

@@ -17,6 +17,7 @@ export const Container = styled.button<{$onlytext: boolean, $secondary: boolean}
     font-weight: 500;
     font-size: clamp(1.2rem, 1.6rem, 2rem);
     line-height: 2.4rem;
+    text-align: center;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
 

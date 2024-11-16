@@ -24,6 +24,7 @@ export const Container = styled.div`
             }
 
             display: flex;
+            width: 100%;
             align-self: start;
             gap: .8rem;
 
@@ -49,6 +50,7 @@ export const Container = styled.div`
             }
 
             display: flex;
+            width: 100%;
             align-self: start;
             gap: .8rem;
 
@@ -77,6 +79,10 @@ export const Container = styled.div`
     input::-webkit-inner-spin-button { //remove arrow from input type number in all others browsers
     -webkit-appearance: none;
     margin: 0;
+    }
+
+    @media (max-width: 900px) {
+        height: fit-content;
     }
 `;
 

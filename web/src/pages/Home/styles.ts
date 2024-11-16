@@ -13,5 +13,10 @@ export const Container = styled.div`
 
     > img {
         width: 100%;
+        margin-right: 2.4rem;
+    }
+
+    @media (max-width: 900px) {
+        padding: 0 0 0 2.4rem;
     }
 `;

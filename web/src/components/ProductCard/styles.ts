@@ -17,16 +17,10 @@ export const Container = styled.div`
         width: 17.6rem;
     }
 
-    input[type=number]{ //remove arrows from input type number in mozzila browser
-        -moz-appearance: textfield;
-        //Also define the standard property 'appearance' for compatibility
-        appearance: textfield;
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button { //remove arrow from input type number in all others browsers
-    -webkit-appearance: none;
-    margin: 0;
+    svg {
+        width: 3.8rem;
+        height: 3.8rem;
+        stroke-width: .01rem;
     }
 
     .favorite-icon {
@@ -40,6 +34,21 @@ export const Container = styled.div`
     .favorite-icon .favorited {
         color: ${({ theme }) => theme.COLORS.TOMATO_200};
     }
+
+    @media (max-width: 900px) {
+        width: fit-content;
+        height: fit-content;
+        padding: 2.4rem;
+        gap: 1.2rem;
+
+        img {
+            width: 8.8rem;
+        }
+
+        .favorite-icon svg {
+            stroke-width: .01rem;
+        }
+    }
 `;
 
 export const ClickableContainer = styled.button`
@@ -51,6 +60,10 @@ export const ClickableContainer = styled.button`
     background: none;
     border: none;
     appearance: none;
+
+    @media (max-width: 900px) {
+        gap: 1.2rem;
+    }
 `;
 
 export const ProdTitle = styled.h3`
@@ -58,8 +71,16 @@ export const ProdTitle = styled.h3`
     font-weight: bold;
     font-size: 2.4rem;
     line-height: 140%;
+    text-align: center;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+    @media (max-width: 900px) {
+        font-size: 1.4rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 `;
 
 export const ProdDescription = styled.p`
@@ -69,6 +90,10 @@ export const ProdDescription = styled.p`
     line-height: 160%;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
+
+    @media (max-width: 900px) {
+        display: none;
+    }
 `;
 
 export const ProdPrice = styled.p`
@@ -78,4 +103,8 @@ export const ProdPrice = styled.p`
     line-height: 160%;
 
     color: ${({ theme }) => theme.COLORS.CAKE_200};
+
+    @media (max-width: 900px) {
+        font-size: 1.6rem;
+    }
 `;

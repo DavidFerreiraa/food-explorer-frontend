@@ -7,4 +7,8 @@ export const Container = styled.button`
     > svg {
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
+
+    @media (max-width: 900px) {
+        display: none;
+    }
 `;

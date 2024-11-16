@@ -12,7 +12,7 @@ export function Button({title, onlyText = false, secondary = false,  icon, ...re
     return(
         <Container {...rest} $onlytext={onlyText} $secondary={secondary}>
             {icon}
-            {title}
+            <p>{title}</p>
         </Container>
     );
 }

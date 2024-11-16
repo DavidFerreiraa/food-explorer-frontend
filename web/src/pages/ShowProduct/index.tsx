@@ -39,7 +39,7 @@ export function ShowProduct() {
         }
 
         if (user?.Role === "USER") {
-            return <QuantityInput includeButtonTitle={`inluir - R$ ${totalPrice.toFixed(2)}`} quantity={quantity} handleChange={setQuantity} handleIncludeOrder={handleIncludeOrder} />
+            return <QuantityInput showProduct includeButtonTitle={`incluir - R$ ${totalPrice.toFixed(2)}`} quantity={quantity} handleChange={setQuantity} handleIncludeOrder={handleIncludeOrder} />
         }
     }
 

@@ -15,6 +15,10 @@ export const Container = styled.div`
     ::-webkit-scrollbar {
         display: none;
     }
+
+    @media (max-width: 900px) {
+        margin-top: 6.2rem;
+    }
 `;
 
 export const CarouselWrapper = styled.div`
@@ -24,6 +28,10 @@ export const CarouselWrapper = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+
+    @media (max-width: 900px) {
+        height: fit-content;
+    }
 `;
 
 export const ProdWrapper = styled.div`
@@ -35,6 +43,10 @@ export const ProdWrapper = styled.div`
 
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    @media (max-width: 900px) {
+        height: fit-content;
+    }
 `;
 
 export const ProdContainer = styled.div`
@@ -53,6 +65,14 @@ export const ProdContainer = styled.div`
     > div {
         flex-shrink: 0;
         width: calc(100% / 3); /* Exibe 3 itens por vez */
+    }
+
+    @media (max-width: 900px) {
+        gap: 1.6rem;
+        > div {
+            width: calc(100% / 1.8);
+            height: fit-content;
+        }
     }
 `;
 
@@ -84,6 +104,10 @@ export const CarouselButtonWrapper = styled.div`
 
         background: linear-gradient( to left, rgba(0, 10, 15, 100%), rgba(0, 10, 15, 0%));
     }
+
+    @media (max-width: 900px) {
+        display: none;
+    }
 `;
 
 export const CarouselButton = styled.button`
@@ -96,6 +120,10 @@ export const CarouselButton = styled.button`
     }
 
     pointer-events: all;
+
+    @media (max-width: 900px) {
+        display: none;
+    }
 `;
 
 
@@ -108,4 +136,8 @@ export const Title = styled.h1`
     line-height: 140%;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
+    @media (max-width: 900px) {
+        font-size: 1.8rem;
+    }
 `;

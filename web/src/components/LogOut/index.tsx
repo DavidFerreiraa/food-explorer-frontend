@@ -13,7 +13,7 @@ export function LogOut() {
     }
 
     return(
-        <Container onClick={handleSignOut}>
+        <Container id="logout" onClick={handleSignOut}>
             <GoSignOut size={32}/>
         </Container>
     );

@@ -9,17 +9,15 @@ import { LogOut } from "../LogOut";
 import { Link, useLocation } from "react-router-dom";
 import { useOrder } from "../../hooks/order";
 import { useEffect, useState } from "react";
-import { IOrder } from "../../interfaces/IOrder";
 import { useProduct } from "../../hooks/product";
 import { IoMdClose, IoMdMenu } from "react-icons/io";
 
 export function Header() {
     const { user } = useAuth();
     const location = useLocation();
-    const { fetchOrders } = useOrder();
+    const { orders, fetchOrders } = useOrder();
     const { fetchProducts } = useProduct();
 
-    const [orders, setOrders] = useState<IOrder[] | undefined>(undefined);
     const [menuOpened, setMenuOpened] = useState<boolean>(false);
 
     async function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
@@ -37,9 +35,7 @@ export function Header() {
     }
 
     useEffect(() => {
-        fetchOrders().then((orders) => {
-            setOrders(orders);
-        });
+        fetchOrders();
     }, []);
 
     useEffect(() => {

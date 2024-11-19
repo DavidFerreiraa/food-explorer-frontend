@@ -6,7 +6,6 @@ import { FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { PiPencilSimpleBold } from "react-icons/pi";
 import { useOrder } from "../../hooks/order";
-import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
 import { Link } from "react-router-dom";
 import { QuantityInput } from "../QuantityInput";

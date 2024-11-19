@@ -27,6 +27,12 @@ export function Menu() {
                             Novo prato
                         </MenuItem>
                     }
+                    <MenuItem to="/favorites">
+                        Meus favoritos
+                    </MenuItem>
+                    <MenuItem to="/orders/history">
+                        Histórico de pedidos
+                    </MenuItem>
                     <MenuItem to="/" onClick={signOut}>
                         Sair
                     </MenuItem>

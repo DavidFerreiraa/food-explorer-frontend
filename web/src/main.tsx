@@ -10,6 +10,7 @@ import { AuthProvider } from './hooks/auth'
 import { ProductProvider } from './hooks/product'
 import { CategoryProvider } from './hooks/category'
 import { OrderProvider } from './hooks/order'
+import { FavoriteProvider } from './hooks/favorites'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -18,9 +19,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ProductProvider>
           <CategoryProvider>
             <OrderProvider>
-              <GlobalStyles/>
-              <Routes/>
-              <ToastContainer theme='dark'/>
+              <FavoriteProvider>
+                <GlobalStyles/>
+                <Routes/>
+                <ToastContainer theme='dark'/>
+              </FavoriteProvider>
             </OrderProvider>
           </CategoryProvider>
         </ProductProvider>

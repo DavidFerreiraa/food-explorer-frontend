@@ -90,6 +90,8 @@ export const Input = styled.input`
 
     display: flex;
 
+    width: 100%;
+
     padding: 1.3rem 1.4rem;
 
     background: ${({ theme }) => theme.COLORS.DARK_800};

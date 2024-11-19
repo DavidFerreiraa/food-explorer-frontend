@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer";
 import { ShowProduct } from "../pages/ShowProduct";
 import { ContentWrapper, LayoutWrapper } from "./styles";
 import { Menu } from "../pages/Menu";
+import { Orders } from "../pages/Orders";
 
 export function UserRoutes() {
     return(
@@ -15,6 +16,7 @@ export function UserRoutes() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/showproduct/:id" element={<ShowProduct/>}/>
                     <Route path="/menu" element={<Menu/>}/>
+                    <Route path="/orders" element={<Orders/>}/>
                 </Routes>
             </ContentWrapper>
             <Footer/>

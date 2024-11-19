@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IProduct } from "../../interfaces/IProduct";
 import { api } from "../../services/api";
 import { ClickableContainer, Container, ProdDescription, ProdPrice, ProdTitle } from "./styles";
@@ -6,13 +6,12 @@ import { FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { PiPencilSimpleBold } from "react-icons/pi";
 import { useOrder } from "../../hooks/order";
-import { AxiosError } from "axios";
-import { IDataError } from "../../interfaces/IAppError";
 import { toast } from "react-toastify";
-import { IFavorite } from "../../interfaces/IFavorite";
 import { useAuth } from "../../hooks/auth";
 import { Link } from "react-router-dom";
 import { QuantityInput } from "../QuantityInput";
+import { useFavorites } from "../../hooks/favorites";
+import { IFavorite } from "../../interfaces/IFavorite";
 
 export interface IProductCard extends React.HTMLAttributes<HTMLDivElement> {
     product: IProduct
@@ -20,12 +19,13 @@ export interface IProductCard extends React.HTMLAttributes<HTMLDivElement> {
 
 export function ProductCard({ product, ...rest }: IProductCard) {
     const { createOrder } = useOrder();
+    const { favorites, fetchFavorites,createFavorite, deleteFavorite} = useFavorites();
     const { user } = useAuth();
 
     const avatarURL = `${api.defaults.baseURL}/files/${product.imageUrl}`;
 
     const [quantity, setQuantity] = useState<number>(1);
-    const [favorite, setFavorite] = useState<IFavorite | null>(product.favoritesId? {id: product.favoritesId, userId: product.creatorId} : null);
+    const [isFavorite, setIsFavorite] = useState<IFavorite | undefined>(undefined);
 
     const totalPrice = Number(product.price) * quantity;
 
@@ -34,36 +34,20 @@ export function ProductCard({ product, ...rest }: IProductCard) {
         setQuantity(1);
     }
 
+    function handleIsFavorite() {
+        setIsFavorite(favorites?.find((favorite) => favorite.Product[0].id === product.id))
+    }
+    
     async function handleFavorite() {
-        if (favorite) {
-            await api.delete(`/favorites/${favorite.id}`).then((response) => {
-                console.log("delete")
-                if (response.data) {
-                    toast.success(response.data.message)
-                    setFavorite(null)
-                }
-            }).catch((error: AxiosError<IDataError>) => {
-                if (error.response) {
-                    error.response.data.details? error.response.data.details.map((detail) => {
-                        toast.error(detail.message);
-                    }) : toast.error(error.response.data.message);
-                }
-                console.log(error)
-            });
+
+        handleIsFavorite();
+
+        if (isFavorite) {
+            deleteFavorite(isFavorite.id)
         }
 
-        if (!favorite) {
-            await api.post(`/favorites/${product.id}`).then((response) => {
-                toast.success("Product added to favorites!")
-                setFavorite(response.data)
-            }).catch((error: AxiosError<IDataError>) => {
-                if (error.response) {
-                    error.response.data.details? error.response.data.details.map((detail) => {
-                        toast.error(detail.message);
-                    }) : toast.error(error.response.data.message);
-                }
-                console.log(error)
-            });
+        if (!isFavorite) {
+            createFavorite(product.id)
          }
     }
 
@@ -71,7 +55,7 @@ export function ProductCard({ product, ...rest }: IProductCard) {
         if (user?.Role === 'USER') {
             return (
                 <ClickableContainer className="favorite-icon" onClick={handleFavorite}>
-                    { favorite? <FaHeart className="favorited"/> : <CiHeart size={24}/>}
+                    { isFavorite? <FaHeart className="favorited"/> : <CiHeart size={24}/>}
                 </ClickableContainer>
             )
         }
@@ -84,6 +68,14 @@ export function ProductCard({ product, ...rest }: IProductCard) {
             )
         }
     }
+
+    useEffect(() => {
+        fetchFavorites();
+    }, [])
+
+    useEffect(() => {
+        handleIsFavorite();
+    }, [favorites])
 
     return (
         <Container {...rest}>

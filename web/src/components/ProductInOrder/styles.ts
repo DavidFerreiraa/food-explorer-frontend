@@ -7,7 +7,7 @@ export const Container = styled.div`
     padding: 1.6rem 0;
     gap: 1.3rem;
 
-    width: 100%;
+    width: fit-content;
 
     > img {
         width: 7.2rem;

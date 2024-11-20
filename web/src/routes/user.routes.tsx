@@ -7,6 +7,7 @@ import { ContentWrapper, LayoutWrapper } from "./styles";
 import { Menu } from "../pages/Menu";
 import { Orders } from "../pages/Orders";
 import { Favorites } from "../pages/Favorites";
+import { OrderHistory } from "../pages/OrderHistory";
 
 export function UserRoutes() {
     return(
@@ -18,6 +19,7 @@ export function UserRoutes() {
                     <Route path="/showproduct/:id" element={<ShowProduct/>}/>
                     <Route path="/menu" element={<Menu/>}/>
                     <Route path="/orders" element={<Orders/>}/>
+                    <Route path="/orders/history" element={<OrderHistory/>}/>
                     <Route path="/favorites" element={<Favorites/>}/>
                 </Routes>
             </ContentWrapper>

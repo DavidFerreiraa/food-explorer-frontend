@@ -7,6 +7,7 @@ import { ShowProduct } from "../pages/ShowProduct";
 import { ContentWrapper, LayoutWrapper } from "./styles";
 import { EditProduct } from "../pages/EditProduct";
 import { Menu } from "../pages/Menu";
+import { OrderHistory } from "../pages/OrderHistory";
 
 export function AdminRoutes() {
     return(
@@ -19,6 +20,7 @@ export function AdminRoutes() {
                     <Route path="/showproduct/:id" element={<ShowProduct/>}/>
                     <Route path="/editproduct/:id" element={<EditProduct/>}/>
                     <Route path="/menu" element={<Menu/>}/>
+                    <Route path="/orders/history" element={<OrderHistory/>}/>
                 </Routes>
             </ContentWrapper>
             <Footer/>

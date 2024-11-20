@@ -9,7 +9,39 @@ export const Container = styled.div`
     padding: 3.2rem 12.2rem;
     
     grid-template-columns: 1fr 1fr;
-    `;
+
+    #next {
+        visibility: hidden;
+    }
+
+    #order-column, #payment-column {
+        transition: opacity 0.5s ease;
+    }
+    
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        padding: 5.6rem 3.5rem;
+        column-gap: 0;
+
+        #next {
+            visibility: visible;
+
+            width: calc(100% / 1.5);
+        }
+
+        #payment-column {
+            display: none;
+        }
+    }
+`;
+
+export const NextButtonWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    width: 100%;
+`;
 
 export const Title = styled.h3`
     font-family: "Poppins", "Roboto", sans-serif;
@@ -30,18 +62,18 @@ export const TotalPriceDescription = styled.p`
 `;
 
 export const Column = styled.div`
-
+    
 `;
 
 export const ProductWrapper = styled.div`
     display: flex;
     justify-content: start;
-    align-items: center;
+    align-items: start;
     flex-direction: column;
 
     width: 100%;
-    height: calc(100% / 1.3);
-    max-height: 41.6rem;
+    height: 100%;
+    max-height: calc(100% / 1.3);
 
     overflow-y: scroll;
     scrollbar-width: thin; /* Para navegadores que suportam (Firefox) */
@@ -59,5 +91,9 @@ export const ProductWrapper = styled.div`
 
     &::-webkit-scrollbar-track {
         background-color: ${({ theme }) => theme.COLORS.DARK_100}; /* Cor da trilha da barra */
+    }
+
+    @media (max-width: 900px) {
+        margin: 2.7rem 0 1.6rem 0;
     }
 `;

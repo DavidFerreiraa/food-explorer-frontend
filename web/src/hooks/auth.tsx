@@ -5,7 +5,6 @@ import { IDataError } from "../interfaces/IAppError";
 import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
 interface IAuthProvider {
     children: ReactNode
 }
@@ -42,10 +41,8 @@ export function AuthProvider({children}: IAuthProvider) {
     }
 
     async function signUp(name: string, email: string, password: string): Promise<void> {
-        const navigate = useNavigate();
-        
         api.post<IUser>("/users", { name, email, password }).then(() => {
-            navigate("/")
+            window.location.href = "/"
         }).catch((error: AxiosError<IDataError>) => {
             if (error.response) {
                 error.response.data.details? error.response.data.details.map((detail) => {

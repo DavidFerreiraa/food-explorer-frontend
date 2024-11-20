@@ -5,6 +5,10 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
+
+    @media (max-width: 900px) {
+        border-radius: .5rem;
+    }
 `;
 
 export const SelectContainer = styled.div`
@@ -51,6 +55,10 @@ export const SelectContainer = styled.div`
             display: block;
         }
     }
+
+    @media (max-width: 900px) {
+        border-radius: .5rem;
+    }
 `;
 
 export const Select = styled.select`
@@ -66,6 +74,10 @@ export const Select = styled.select`
 
     color: transparent;
     text-shadow: 0 0 0 rgba(0, 0, 0, 0)": "none; /* Removes the text shadow */
+
+    @media (max-width: 900px) {
+        border-radius: .5rem;
+    }
 `;
 
 export const Option = styled.option`

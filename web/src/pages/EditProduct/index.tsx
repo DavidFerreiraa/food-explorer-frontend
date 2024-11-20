@@ -148,7 +148,7 @@ export function EditProduct() {
             return toast.error("Id do produto não fornecido nos parâmetros")
         }
 
-        await updateProduct({ product: productData, file: plateImage || undefined }, id).then((product) => {
+        await updateProduct({ product: productData, file: plateImage || undefined }, id).then(() => {
             toast.success("Produto atualizado com sucesso!");
             navigate("..");
         }).catch((error) => {

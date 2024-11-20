@@ -4,7 +4,6 @@ import { Button } from "../Button";
 import { Table, StatusIndicator, ProductList, Card, ResponsiveContainer } from "./styles";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
-import { FormSelector } from "../FormSelector";
 import { useOrder } from "../../hooks/order";
 import { StatusSelector } from "../StatusSelector";
 

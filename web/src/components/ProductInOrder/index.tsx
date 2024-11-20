@@ -33,7 +33,6 @@ export function ProductInOrder({order, favorite}: IProductInOrder) {
     if (order) {
         const orderProduct = order.OrderProducts[0];
         const imageUrl = `${api.defaults.baseURL}/files/${orderProduct.Product.imageUrl}`;
-        console.log(order)
         return (
             <Container>
                 <img src={imageUrl}/>
@@ -50,7 +49,6 @@ export function ProductInOrder({order, favorite}: IProductInOrder) {
 
     if (favorite) {
         const imageUrl = `${api.defaults.baseURL}/files/${favorite.Product[0].imageUrl}`;
-        console.log(favorite)
         return (
             <Container>
                 <img src={imageUrl}/>

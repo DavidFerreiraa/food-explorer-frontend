@@ -71,7 +71,6 @@ export function NewProduct() {
         }
 
         await createProduct({product: product, file: plateImage}).then((product) => {
-            console.log(product)
             if(!product) {
                 return;
             }

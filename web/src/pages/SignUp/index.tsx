@@ -7,7 +7,6 @@ import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
 
 export function SignUp() {
-    console.log("aaaa")
     const { signUp } = useAuth();
 
     const [ name, setName ] = useState<string>("");

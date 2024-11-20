@@ -3,12 +3,21 @@ import { IOrder, IOrderStatus } from "../../interfaces/IOrder";
 import { Button } from "../Button";
 import { Table, StatusIndicator, ProductList, Card, ResponsiveContainer } from "./styles";
 import { toast } from "react-toastify";
+import { useAuth } from "../../hooks/auth";
+import { FormSelector } from "../FormSelector";
+import { useOrder } from "../../hooks/order";
+import { StatusSelector } from "../StatusSelector";
 
 interface IOrderDataTable {
     orders: IOrder[];
-  }
+}
 
 export function OrderDataTable({ orders }: IOrderDataTable) {
+
+    const status: string[] = Object.values(IOrderStatus)
+
+    const { user } = useAuth();
+    const { updateOrderStatus } = useOrder();
 
     function dateFormater(data: string) {
         const firstDateField = new Date(data).toLocaleDateString("pt-BR", {
@@ -29,6 +38,10 @@ export function OrderDataTable({ orders }: IOrderDataTable) {
         toast.success("Código copiado.");
     }
 
+    function handleChangeStatus(status: string, orderId: string) {
+        updateOrderStatus(status as IOrderStatus, orderId);
+    }
+
     return (
         <ResponsiveContainer>
             <Table>
@@ -44,8 +57,14 @@ export function OrderDataTable({ orders }: IOrderDataTable) {
                     {orders.map((order) => (
                         <tr key={order.id}>
                             <td>
-                                <StatusIndicator $status={order.status || IOrderStatus.Pendente} />
-                                {order.status || IOrderStatus.Pendente}
+                                {
+                                    user?.Role === "ADMIN"? <StatusSelector onChange={(e) => {handleChangeStatus(e.target.value, order.id)}} label="" data={status} value={order.status}/> 
+                                    : 
+                                    <>
+                                        <StatusIndicator $status={order.status || IOrderStatus.Pendente}/>
+                                        {order.status || IOrderStatus.Pendente}
+                                    </>
+                                }
                             </td>
                             <td>{order.id.toUpperCase()}</td>
                             <td>

@@ -150,7 +150,6 @@ export function EditProduct() {
 
         await updateProduct({ product: productData, file: plateImage || undefined }, id).then((product) => {
             toast.success("Produto atualizado com sucesso!");
-            console.log(product)
             navigate("..");
         }).catch((error) => {
             toast.error("Erro ao criar o produto.");

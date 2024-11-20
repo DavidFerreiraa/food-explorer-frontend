@@ -9,7 +9,6 @@ interface IPaymentStatus {
 }
 
 export function PaymentStatus({status}: IPaymentStatus) {
-    console.log(status == IOrderStatus.Pendente)
     return (
         status == IOrderStatus.Pendente && (
             <Container className="selected">

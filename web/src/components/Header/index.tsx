@@ -22,11 +22,8 @@ export function Header() {
 
     async function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
-        console.log(event.target.value)
         if (event.target.value.length > 0) {
-            fetchProducts(event.target.value).then((products) => {
-                console.log(products)
-            });
+            fetchProducts(event.target.value)
         }
     }
 

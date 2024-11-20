@@ -17,19 +17,16 @@ export function Payment({order}: IPayment) {
         const allButtons = document.querySelectorAll('.TogglePayment');
         allButtons.forEach((button) => button.classList.remove('selected'));
 
-        // Adiciona a classe "selected" ao botão clicado
-        console.log(clickedButton)
+        // Adds the class "selected"
         clickedButton.classList.add('selected');
 
-        // Manipula as classes "selected" nas imagens e nos componentes de acordo com o botão clicado
+        // Changes selected class according with the button pressed
         if (clickedButton.id === "pix") {
-            // Para o Pix: adiciona "selected" na imagem e no botão
             document.querySelector('#pix-image')?.classList.add('selected');
             document.querySelector('#credit-form')?.classList.remove('selected');
         }
 
         if (clickedButton.id === "credit") {
-            // Para Crédito: adiciona "selected" no CreditForm e no botão
             document.querySelector('#credit-form')?.classList.add('selected');
             document.querySelector('#pix-image')?.classList.remove('selected');
         }

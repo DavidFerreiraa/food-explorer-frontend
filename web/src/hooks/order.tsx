@@ -3,7 +3,7 @@ import { api } from "../services/api";
 import { IDataError } from "../interfaces/IAppError";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
-import { IOrder } from "../interfaces/IOrder";
+import { IOrder, IOrderStatus } from "../interfaces/IOrder";
 
 interface IOrderProvider {
     children: ReactNode
@@ -27,6 +27,7 @@ interface OrderContextType {
     orders: IOrder[] | undefined
     fetchOrders(search?: string): Promise<IOrder[] | undefined>
     createOrder({totalPrice, quantity, productId}: ICreateOrder): Promise<IOrderCreated | void>
+    updateOrderStatus(status: IOrderStatus, id: string): Promise<IOrderCreated | void>
     deleteOrder(id: string): Promise<IOrder[] | undefined>
 }
 
@@ -68,6 +69,24 @@ export function OrderProvider({children}: IOrderProvider) {
         });
     }
 
+    async function updateOrderStatus(status: IOrderStatus, id: string): Promise<IOrderCreated | void> {
+
+        return await api.patch(`/orders/${id}/status`,{status}).then((response) => {
+            toast.success("Order status updated!");
+            const orderUpdated = response.data;
+            fetchOrders();
+            return orderUpdated;
+        })
+        .catch((error: AxiosError<IDataError>) => {
+            if (error.response) {
+                error.response.data.details? error.response.data.details.map((detail) => {
+                    toast.error(detail.message);
+                }) : toast.error(error.response.data.message);
+            }
+            console.log(error)
+        });
+    }
+
     async function deleteOrder(id: string): Promise<IOrder[] | undefined> {
         await api.delete(`/orders/${id}`).catch((error: AxiosError<IDataError>) => {
             if (error.response) {
@@ -85,6 +104,7 @@ export function OrderProvider({children}: IOrderProvider) {
             orders: data,
             fetchOrders,
             createOrder,
+            updateOrderStatus,
             deleteOrder
         }}>
             {children}

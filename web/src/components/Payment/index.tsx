@@ -3,8 +3,13 @@ import { Container, CreditForm, PaymentMethodWrapper, TogglePayment, ToggleWrapp
 import PixQrCode from "../../assets/pixQrCode.svg";
 import { FormField } from "../FormField";
 import { Button } from "../Button";
+import { IOrder } from "../../interfaces/IOrder";
+import { PaymentStatus } from "../PaymentStatus";
 
-export function Payment() {
+interface IPayment {
+    order: IOrder
+}
+export function Payment({order}: IPayment) {
 
     function togglePaymentMethod(event: React.MouseEvent<HTMLButtonElement>) {
         const clickedButton = event.currentTarget;
@@ -13,6 +18,7 @@ export function Payment() {
         allButtons.forEach((button) => button.classList.remove('selected'));
 
         // Adiciona a classe "selected" ao botão clicado
+        console.log(clickedButton)
         clickedButton.classList.add('selected');
 
         // Manipula as classes "selected" nas imagens e nos componentes de acordo com o botão clicado
@@ -35,17 +41,25 @@ export function Payment() {
                 <TogglePayment id="pix" className="selected TogglePayment" icon={<PiPixLogoBold size={24}/>} title="PIX" onClick={togglePaymentMethod}/>
                 <TogglePayment id="credit" className="TogglePayment" icon={<PiCreditCardBold size={24}/>} title="Crédito" onClick={togglePaymentMethod}/>
             </ToggleWrapper>
-            <PaymentMethodWrapper>
-                <img id="pix-image" className="selected" src={PixQrCode}/>
-                <CreditForm id="credit-form" className="">
-                    <FormField htmlFor="Número do cartão" name="Número do cartão" placeholder="0000 0000 0000 0000" label="Número do cartão"/>
-                    <ValCVCWrapper>
-                        <FormField htmlFor="Válidade" name="Válidade" placeholder="04/25" label="Válidade"/>
-                        <FormField htmlFor="CVC" name="CVC" placeholder="000" label="CVC"/>
-                    </ValCVCWrapper>
-                    <Button icon={<PiReceiptBold size={24}/>} title="Finalizar pagamento"/>
-                </CreditForm>
-            </PaymentMethodWrapper>
+                {
+                    order.status? (
+                    <PaymentMethodWrapper>
+                        <PaymentStatus status={order.status} />
+                    </PaymentMethodWrapper>
+                    ) : (
+                        <PaymentMethodWrapper>
+                            <img id="pix-image" className="selected" src={PixQrCode}/>
+                            <CreditForm id="credit-form" className="">
+                                <FormField htmlFor="Número do cartão" name="Número do cartão" placeholder="0000 0000 0000 0000" label="Número do cartão"/>
+                                <ValCVCWrapper>
+                                    <FormField htmlFor="Válidade" name="Válidade" placeholder="04/25" label="Válidade"/>
+                                    <FormField htmlFor="CVC" name="CVC" placeholder="000" label="CVC"/>
+                                </ValCVCWrapper>
+                                <Button icon={<PiReceiptBold size={24}/>} title="Finalizar pagamento"/>
+                            </CreditForm>
+                        </PaymentMethodWrapper>
+                    )
+                }
         </Container>
     )
 }

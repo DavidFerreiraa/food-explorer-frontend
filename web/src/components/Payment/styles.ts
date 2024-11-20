@@ -18,6 +18,10 @@ export const Container = styled.div`
     border-radius: .8rem;
 
     overflow: hidden;
+
+    @media (max-width: 900px) {
+        width: 35.3rem;
+    }
 `;
 
 export const ToggleWrapper = styled.div`
@@ -64,6 +68,19 @@ export const PaymentMethodWrapper = styled.div`
 
     > :not(.selected) {
         display: none;
+    }
+
+    @media (max-width: 900px) {
+        padding: 0;
+        
+        #credit-form {
+            padding: 5.7rem 2.6rem;
+        }
+
+        > img {
+            width: 16.6rem;
+            height: 16.6rem;
+        }
     }
 `;
 

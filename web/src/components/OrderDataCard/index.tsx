@@ -2,17 +2,19 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/auth";
 import { IOrder, IOrderStatus } from "../../interfaces/IOrder";
 import { Button } from "../Button";
-import { Card, StatusIndicator } from "../OrderDataTable/styles";
+import { StatusIndicator } from "../OrderDataTable/styles";
 import { useOrder } from "../../hooks/order";
 import { dateFormater } from "../../utils/DateFormater";
 import { PiCopy } from "react-icons/pi";
 import { StatusSelector } from "../StatusSelector";
+import { Card } from "./styles";
+import { HTMLProps } from "react";
 
-interface IOrderDataCard {
-    order: IOrder
+interface IOrderDataCard extends HTMLProps<HTMLDivElement> {
+    order: IOrder,
 }
 
-export function OrderDataCard({order}: IOrderDataCard) {
+export function OrderDataCard({order, ...rest}: IOrderDataCard) {
     const { user } = useAuth();
     const { updateOrderStatus } = useOrder();
 
@@ -28,7 +30,7 @@ export function OrderDataCard({order}: IOrderDataCard) {
     }
 
     return (
-        <Card key={order.id}>
+        <Card {...rest} key={order.id}>
             <div className="card-header">
                 {
                     user?.Role === "USER"?

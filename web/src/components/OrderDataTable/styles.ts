@@ -88,6 +88,9 @@ export const ResponsiveContainer = styled.div`
         ${Table} {
         display: none; // Esconde a tabela
         }
+        #card {
+            display: block;
+        }
     }
 `;
 

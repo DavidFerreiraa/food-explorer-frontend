@@ -64,7 +64,7 @@ export function OrderDataTable({ orders }: IOrderDataTable) {
 
             {/* Renderização no formato cartão */}
             {orders.map((order) => (
-                <OrderDataCard key={order.id} order={order}/>
+                <OrderDataCard id="card" key={order.id} order={order}/>
             ))}
         </ResponsiveContainer>
     );

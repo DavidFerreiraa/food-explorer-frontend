@@ -81,75 +81,12 @@ export const ProductList = styled.ul`
     }
 `;
 
-// Container para cada item da tabela no modo responsivo
-export const Card = styled.div`
-    display: none; // Inicialmente escondido, ativado no modo responsivo
-    border: 0.1rem solid ${({ theme }) => theme.COLORS.DARK_1000};
-    border-radius: 0.8rem;
-    padding: 1.6rem;
-    margin-bottom: 1.6rem;
-
-    .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.6rem;
-
-        .status {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-
-        span {
-            font-size: 1.4rem;
-            color: ${({ theme }) => theme.COLORS.LIGHT_300};
-        }
-        }
-
-        .order-id {
-            display: flex;
-
-            > p {
-                max-width: 5.6rem;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                font-family: 'Roboto', 'Poppins', sans-serif;
-                font-weight: 400;
-                text-align: left;
-                font-size: 1.4rem;
-                color: ${({ theme }) => theme.COLORS.LIGHT_300};
-            }
-        }
-
-        .order-date {
-            font-size: 1.4rem;
-            color: ${({ theme }) => theme.COLORS.LIGHT_300};
-        }
-    }
-
-    .product-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li {
-        margin-bottom: 0.4rem;
-        font-size: 1.4rem;
-        color: ${({ theme }) => theme.COLORS.LIGHT_300};
-        }
-    }
-`;
-
 // Estilos adaptativos para o modo responsivo
 export const ResponsiveContainer = styled.div`
     padding: .4rem;
     @media (max-width: 900px) {
         ${Table} {
         display: none; // Esconde a tabela
-        }
-
-        ${Card} {
-        display: block; // Mostra os cartões
         }
     }
 `;

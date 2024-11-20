@@ -1,11 +1,10 @@
-import { PiCopy } from "react-icons/pi";
 import { IOrder, IOrderStatus } from "../../interfaces/IOrder";
-import { Button } from "../Button";
-import { Table, StatusIndicator, ProductList, Card, ResponsiveContainer } from "./styles";
-import { toast } from "react-toastify";
+import { Table, StatusIndicator, ProductList, ResponsiveContainer } from "./styles";
 import { useAuth } from "../../hooks/auth";
 import { useOrder } from "../../hooks/order";
 import { StatusSelector } from "../StatusSelector";
+import { dateFormater } from "../../utils/DateFormater";
+import { OrderDataCard } from "../OrderDataCard";
 
 interface IOrderDataTable {
     orders: IOrder[];
@@ -18,24 +17,6 @@ export function OrderDataTable({ orders }: IOrderDataTable) {
     const { user } = useAuth();
     const { updateOrderStatus } = useOrder();
 
-    function dateFormater(data: string) {
-        const firstDateField = new Date(data).toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-        });
-
-        const secondDateField = new Date(data).toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit",
-        });
-
-        return `${firstDateField} às ${secondDateField}`;
-    }
-
-    function handleCopy(text: string) {
-        navigator.clipboard.writeText(text);
-        toast.success("Código copiado.");
-    }
 
     function handleChangeStatus(status: string, orderId: string) {
         updateOrderStatus(status as IOrderStatus, orderId);
@@ -83,23 +64,7 @@ export function OrderDataTable({ orders }: IOrderDataTable) {
 
             {/* Renderização no formato cartão */}
             {orders.map((order) => (
-                <Card key={order.id}>
-                    <div className="card-header">
-                        <div className="order-id"><p>{order.id.toUpperCase()}</p><Button onClick={() => {handleCopy(order.id)}} icon={<PiCopy />} title="" onlyText/></div>
-                        <div className="status">
-                            <StatusIndicator $status={order.status || IOrderStatus.Pendente} />
-                            <span>{order.status || IOrderStatus.Pendente}</span>
-                        </div>
-                        <div className="order-date">{dateFormater(order.createdAt)}</div>
-                    </div>
-                    <ul className="product-list">
-                        {order.OrderProducts.map((orderProduct) => (
-                            <li key={orderProduct.id}>
-                                {orderProduct.quantity} x {orderProduct.Product.title}
-                            </li>
-                        ))}
-                    </ul>
-                </Card>
+                <OrderDataCard key={order.id} order={order}/>
             ))}
         </ResponsiveContainer>
     );

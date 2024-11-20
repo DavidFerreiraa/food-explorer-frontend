@@ -1,5 +1,12 @@
 import { IProduct } from "./IProduct"
 
+export enum IOrderStatus {
+    "Pendente" = "Pendente",
+    "Pago" = "Pago",
+    "Preparando" = "Preparando",
+    "Entregue" = "Entregue"
+}
+
 export interface IOrderProducts {
     id: string,
     productId: string,
@@ -14,4 +21,5 @@ export interface IOrder {
     createdAt: string,
     updatedAt: string,
     OrderProducts: IOrderProducts[]
+    status?: IOrderStatus
 }

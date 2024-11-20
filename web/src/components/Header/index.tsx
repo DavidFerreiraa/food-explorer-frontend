@@ -59,11 +59,11 @@ export function Header() {
             <Link className="btn-desktop favorites" to="/favorites">
                 <Button title="Meus favoritos" onlyText/>
             </Link>
-            <Link className="btn-desktop history" to="/orders/history">
-                <Button title="Histórico de pedidos" onlyText/>
+            <Link className="btn-desktop history" to={user?.Role === "ADMIN"? "/newproduct" : "/orders/history"}>
+                <Button title={user?.Role === "ADMIN"? "Novo prato" : "Histórico de pedidos"} onlyText/>
             </Link>
-            <Link className="btn-desktop" to={user?.Role === "ADMIN"? "/newproduct": "/orders"}>
-                <Button icon={user?.Role === "USER" && <PiReceiptBold/>} title={user?.Role === "ADMIN"?"Novo prato":`Pedidos (${orders? orders.length : 0})`}/>
+            <Link className="btn-desktop" to={user?.Role === "ADMIN"? "/orders/history" : "/orders"}>
+                <Button icon={<PiReceiptBold/>} title={`Pedidos (${orders? orders.length : 0})`}/>
             </Link>
 
             <LogOut/>

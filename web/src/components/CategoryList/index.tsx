@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ICategory } from "../../interfaces/ICategory";
 import { ProductCard } from "../ProductCard";
 import { CarouselButton, CarouselButtonWrapper, CarouselWrapper, Container, ProdContainer, ProdWrapper, Title } from "./styles";
@@ -12,6 +12,7 @@ interface ICategoryList {
 export function CategoryList({category}: ICategoryList) {
     const { products } = useProduct();
     const prodContainerRef = useRef<HTMLDivElement | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const [currentItem, setCurrentItem] = useState(0);
     const itemsPerPage = 3; // Quantidade de itens a serem visíveis por vez
     const totalItems = category.Products.length;
@@ -59,8 +60,21 @@ export function CategoryList({category}: ICategoryList) {
         ))
     }
 
+    useEffect(() => {
+        // Verifica se o prodContainer está vazio e oculta o Container se necessário
+        if (prodContainerRef.current && !prodContainerRef.current.hasChildNodes()) {
+            if (containerRef.current) {
+                console.log('entrou')
+                containerRef.current.style.display = 'none';
+            }
+        }
+        else if (containerRef.current) {
+            containerRef.current.style.display = 'flex';
+        }
+    }, [products]);
+
     return(
-        <Container>
+        <Container id="container" ref={containerRef}>
             <Title>{category.name}</Title>
             <CarouselWrapper>
                 <CarouselButtonWrapper className="left">

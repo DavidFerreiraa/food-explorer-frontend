@@ -16,7 +16,6 @@ export function Menu() {
 
     async function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
         setSearch(event.target.value)
-        console.log(products && search.length > 0)
         event.preventDefault();
         if (event.target.value.length > 0) {
             fetchProducts(event.target.value)
@@ -24,6 +23,7 @@ export function Menu() {
     }
 
     useEffect(() => {
+        fetchProducts();
         fetchCategories().then((categories) => {
             setCategories(categories);
         });

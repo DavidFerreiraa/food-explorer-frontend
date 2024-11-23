@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
 export const api = axios.create({
-    baseURL: "https://food-explorer-backend-rhxz.onrender.com:3333", //server on prod address
+    baseURL: "https://food-explorer-backend-rhxz.onrender.com", //server on prod address
     withCredentials: true
 })
 

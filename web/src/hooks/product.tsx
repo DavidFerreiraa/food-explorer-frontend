@@ -113,7 +113,7 @@ export function ProductProvider({children}: IProductProvider) {
             fileUploadForm.append("productImage", file);
         }
         fileUploadForm.append("json", JSON.stringify(product));
-
+        
         let productUpdated = undefined
 
         await api.put(`/products/${id}`, fileUploadForm)

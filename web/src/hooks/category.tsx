@@ -34,7 +34,7 @@ export function CategoryProvider({children}: ICategoryProvider) {
     async function showCategory(id: string | undefined): Promise<ICategory | undefined> {
 
         if (!id) {
-            toast.warn("Não foi possível acessar o produto, volte e tente novamente.");
+            toast.warn("Não foi possível acessar a categoria, volte e tente novamente.");
             return;
         }
         return await api.get(`/categories/${id}`).then((response) => {

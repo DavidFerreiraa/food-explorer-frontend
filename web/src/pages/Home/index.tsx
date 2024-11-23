@@ -14,7 +14,6 @@ export function Home() {
             setCategories(categories);
         });
     }, [])
-
     return(
         <Container>
             <img src={Banner} alt="Sabores inigualáveis - banner"/>

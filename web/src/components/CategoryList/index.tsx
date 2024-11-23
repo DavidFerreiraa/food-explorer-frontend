@@ -64,7 +64,6 @@ export function CategoryList({category}: ICategoryList) {
         // Verifica se o prodContainer está vazio e oculta o Container se necessário
         if (prodContainerRef.current && !prodContainerRef.current.hasChildNodes()) {
             if (containerRef.current) {
-                console.log('entrou')
                 containerRef.current.style.display = 'none';
             }
         }
